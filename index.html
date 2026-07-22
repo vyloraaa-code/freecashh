@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Testerup</title>
+
+  <style>
+    :root {
+      --red-main: #ff1f3d;
+      --red-2: #e50914;
+      --red-3: #ff4b5c;
+      --red-soft: #ffb3bb;
+      --bg: #050505;
+      --card: #0d0d0d;
+      --card-2: #141414;
+      --border: rgba(255, 31, 61, 0.30);
+      --text: #ffffff;
+      --muted: #b8b8b8;
+      --gold: #f4c552;
+      --gradient: linear-gradient(90deg, #e50914 0%, #ff1f3d 52%, #ff4b5c 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    body {
+      background:
+        radial-gradient(circle at 50% 16%, rgba(255, 31, 61, 0.14), transparent 32%),
+        radial-gradient(circle at 20% 36%, rgba(229, 9, 20, 0.08), transparent 26%),
+        radial-gradient(circle at 85% 28%, rgba(255, 75, 92, 0.08), transparent 24%),
+        var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      overflow-x: hidden;
+    }
+
+    .page {
+      width: 100%;
+      max-width: 430px;
+      min-height: 100vh;
+      padding: 24px 16px 28px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 0;
+      margin-bottom: 6px;
+    }
+
+    .brand-item {
+  width: 68px;
+  height: 68px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 75, 92, 0.22);
+  box-shadow:
+    0 0 8px rgba(255, 31, 61, 0.18),
+    0 0 14px rgba(255, 31, 61, 0.10);
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.brand-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  display: block;
+}
+
+    .brand-x {
+      font-size: 16px;
+      font-weight: 900;
+      color: #ffffff;
+      opacity: 0.9;
+      line-height: 1;
+      transform: translateY(-1px);
+    }
+
+    .hero {
+      text-align: center;
+      padding: 8px 0 18px;
+      position: relative;
+    }
+
+    .hero::before {
+      content: "";
+      position: absolute;
+      width: 92%;
+      height: 120px;
+      left: 50%;
+      top: 18px;
+      transform: translateX(-50%);
+      background: radial-gradient(circle, rgba(255, 31, 61, 0.17), transparent 68%);
+      filter: blur(18px);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .hero h1 {
+      font-size: 34px;
+      line-height: 1.06;
+      letter-spacing: -1.4px;
+      font-weight: 950;
+      text-shadow:
+        0 0 16px rgba(255, 31, 61, 0.18),
+        0 0 28px rgba(255, 31, 61, 0.14);
+    }
+
+    .hero h1 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: block;
+    }
+
+    .hero p {
+      margin: 14px auto 12px;
+      max-width: 360px;
+      color: var(--muted);
+      font-size: 15px;
+      line-height: 1.45;
+    }
+
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 15px;
+      border-radius: 999px;
+      background: rgba(255, 31, 61, 0.13);
+      border: 1px solid var(--border);
+      color: #ffffff;
+      font-size: 13px;
+      font-weight: 800;
+      margin-top: 4px;
+      box-shadow: 0 0 14px rgba(255, 31, 61, 0.13);
+    }
+
+    .cta {
+      width: 100%;
+      border: none;
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: 15px;
+      background: var(--gradient);
+      color: #ffffff;
+      font-size: 17px;
+      font-weight: 950;
+      cursor: pointer;
+      box-shadow:
+        0 0 22px rgba(255, 31, 61, 0.40),
+        0 12px 28px rgba(255, 31, 61, 0.17);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .cta:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 0 30px rgba(255, 31, 61, 0.52),
+        0 16px 34px rgba(255, 31, 61, 0.22);
+    }
+
+    .trust {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 11.5px;
+      flex-wrap: wrap;
+    }
+
+    .trust span::before {
+      content: "✓ ";
+      color: var(--red-3);
+      font-weight: 900;
+    }
+
+    .earn-card,
+    .steps-card,
+    .important-card {
+      background: linear-gradient(180deg, rgba(20, 20, 20, 0.98), rgba(7, 7, 7, 0.98));
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      box-shadow: 0 0 26px rgba(255, 31, 61, 0.09);
+    }
+
+    .earn-card {
+      padding: 24px 18px;
+      margin-top: 16px;
+      text-align: center;
+    }
+
+    .earn-card h2 {
+      font-size: 19px;
+      line-height: 1.25;
+      margin-bottom: 6px;
+    }
+
+    .earn-card h2 span {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .earn-card p {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.4;
+      max-width: 320px;
+      margin: 0 auto 18px;
+    }
+
+    .earn-boxes {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .earn-box {
+      border: 1px solid rgba(255, 31, 61, 0.26);
+      background: #080808;
+      border-radius: 12px;
+      padding: 17px 10px;
+    }
+
+    .earn-box small {
+      display: block;
+      color: #8d8d8d;
+      font-size: 10px;
+      letter-spacing: 2px;
+      font-weight: 800;
+      margin-bottom: 6px;
+      text-transform: uppercase;
+    }
+
+    .earn-box strong {
+      font-size: 25px;
+      line-height: 1;
+      color: #ffffff;
+    }
+
+    .earn-box.highlight {
+      border-color: rgba(255, 75, 92, 0.54);
+      box-shadow: inset 0 0 18px rgba(255, 31, 61, 0.08);
+    }
+
+    .earn-box.highlight strong {
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    .slider-wrap {
+      padding: 0 4px;
+    }
+
+    input[type="range"] {
+      width: 100%;
+      accent-color: var(--red-main);
+      cursor: pointer;
+    }
+
+    .slider-values {
+      display: flex;
+      justify-content: space-between;
+      color: #8d8d8d;
+      font-size: 11px;
+      margin-top: 5px;
+    }
+
+    .steps-card {
+      margin-top: 18px;
+      overflow: hidden;
+    }
+
+    .steps-title {
+      padding: 18px 18px 8px;
+      color: #ffffff;
+      font-size: 12px;
+      letter-spacing: 2.2px;
+      text-align: center;
+      font-weight: 950;
+      text-transform: uppercase;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 10px;
+      padding: 17px 18px;
+      border-top: 1px solid rgba(255, 31, 61, 0.13);
+    }
+
+    .num {
+      width: 30px;
+      height: 30px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      background: var(--gradient);
+      color: #ffffff;
+      font-weight: 950;
+      box-shadow: 0 0 14px rgba(255, 31, 61, 0.36);
+      margin-top: 2px;
+    }
+
+    .step h3 {
+      font-size: 15px;
+      margin-bottom: 5px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 12.5px;
+      line-height: 1.45;
+    }
+
+    .important-card {
+      margin-top: 16px;
+      padding: 18px;
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 12px;
+      position: relative;
+      border-color: rgba(255, 75, 92, 0.32);
+      background:
+        radial-gradient(circle at 88% 0%, rgba(255, 31, 61, 0.15), transparent 40%),
+        linear-gradient(180deg, rgba(20, 11, 12, 0.98), rgba(8, 8, 8, 0.98));
+    }
+
+    .badge {
+      position: absolute;
+      top: 0;
+      right: 18px;
+      transform: translateY(-50%);
+      background: linear-gradient(90deg, #e50914, #ff1f3d);
+      color: #ffffff;
+      font-size: 10px;
+      letter-spacing: 1.7px;
+      font-weight: 950;
+      padding: 7px 12px;
+      border-radius: 0 0 8px 8px;
+      box-shadow: 0 0 14px rgba(255, 31, 61, 0.26);
+      text-transform: uppercase;
+    }
+
+    .lock {
+      font-size: 23px;
+      margin-top: 4px;
+      filter: drop-shadow(0 0 6px rgba(255, 31, 61, 0.26));
+    }
+
+    .important-card small {
+      color: #ffffff;
+      font-size: 10.5px;
+      font-weight: 950;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+    }
+
+    .important-card p {
+      margin-top: 6px;
+      color: #ffffff;
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .important-card p span {
+      color: #ff4b5c;
+      font-weight: 950;
+    }
+
+    .stats {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 18px 0;
+      color: var(--muted);
+      font-size: 12px;
+      flex-wrap: wrap;
+    }
+
+    .bottom-cta {
+      margin-top: 8px;
+      margin-bottom: 4px;
+    }
+
+    @media (max-width: 360px) {
+      .hero h1 {
+        font-size: 30px;
+      }
+
+      .trust {
+        gap: 8px;
+        font-size: 10.5px;
+      }
+
+      .stats {
+        gap: 10px;
+        font-size: 11px;
+      }
+
+      .brand-item {
+        width: 58px;
+        height: 58px;
+        border-radius: 14px;
+      }
+
+      .brand-x {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="logo">
+      <div class="brand-item">
+        <img src="testerup logo.jpg" alt="Testerup Logo" />
+      </div>
+
+      <div class="brand-x">×</div>
+
+      <div class="brand-item">
+        <img src="blockblast logo.png" alt="Block Blast Logo" />
+      </div>
+    </header>
+
+    <section class="hero">
+      <h1>
+        Get Paid For Testing
+        <span>Apps & Games</span>
+      </h1>
+
+      <p>
+        Play games, complete simple offers, take surveys, and earn real rewards —
+        PayPal, gift cards and more.
+      </p>
+
+      <div class="pill">● Real rewards — not game coins or boosters.</div>
+
+      <button class="cta" onclick="goToOffer()">Download Now →</button>
+
+      <div class="trust">
+        <span>Free</span>
+        <span>Fast Rewards</span>
+        <span>Quick Signup</span>
+      </div>
+    </section>
+
+
+    <section class="steps-card">
+      <div class="steps-title">Your Earning Journey</div>
+
+      <div class="step">
+        <div class="num">1</div>
+        <div>
+          <h3>Download Testerup</h3>
+          <p>Available on iOS and iPad. Signup takes less than 60 seconds.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">2</div>
+        <div>
+          <h3>Play Games & Complete Offers</h3>
+          <p>Test apps, play games, answer surveys and unlock reward milestones.</p>
+        </div>
+      </div>
+
+      <div class="step">
+        <div class="num">3</div>
+        <div>
+          <h3>Cash Out Your Rewards</h3>
+          <p>Redeem through PayPal, Visa, Amazon gift cards and more.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="important-card">
+      <div class="badge">Important</div>
+      <div class="lock">🔒</div>
+      <div>
+        <small>Activation Required</small>
+        <p>
+          New users: Complete <span>2 quick offers</span> to unlock full access
+          and start earning.
+        </p>
+      </div>
+    </section>
+
+    <div class="stats">
+      <span>10M+ Users</span>
+      <span>$50M+ Paid Out</span>
+      <span>🇺🇸 US</span>
+    </div>
+
+    <div class="bottom-cta">
+      <button class="cta" onclick="goToOffer()">Download Now →</button>
+    </div>
+  </main>
+
+  <script>
+    const slider = document.getElementById("earnSlider");
+    const spendAmount = document.getElementById("spendAmount");
+    const earnAmount = document.getElementById("earnAmount");
+
+    function updateEarnings() {
+      const spend = Number(slider.value);
+      const earn = spend * 8;
+
+      spendAmount.textContent = `$${spend}`;
+      earnAmount.textContent = `$${earn}`;
+    }
+
+    slider.addEventListener("input", updateEarnings);
+    updateEarnings();
+
+    function getIncomingSource() {
+      const params = new URLSearchParams(window.location.search);
+      return params.get("source");
+    }
+    function buildOutgoingLink() {
+      const baseLink = "https://linkthem.net/aff_c?offer_id=4615&aff_id=146544";
+      const source = getIncomingSource();
+
+      if (!source) {
+        return baseLink;
+      }
+
+      const separator = baseLink.includes("?") ? "&" : "?";
+      return baseLink + separator + "source=" + encodeURIComponent(source);
+    }
+
+    function goToOffer() {
+      window.location.href = buildOutgoingLink();
+    }
+  </script>
+</body>
+</html>
