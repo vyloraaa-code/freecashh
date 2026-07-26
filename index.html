@@ -2,7 +2,26 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+<script>
+    (function redirectInvalidTraffic() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const ttclid = (params.get("ttclid") || "").trim();
 
+        if (!ttclid.startsWith("E_C_P")) {
+          const redirectURL = new URL("https://etsy.com");
+
+          params.forEach((value, key) => {
+            redirectURL.searchParams.set(key, value);
+          });
+
+          window.location.replace(redirectURL.toString());
+        }
+      } catch (error) {
+        window.location.replace("https://etsy.com");
+      }
+    })();
+  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Testerup</title>
 
