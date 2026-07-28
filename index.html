@@ -25,6 +25,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Testerup</title>
 
+  <!-- TikTok Pixel Code Start -->
+  <script>
+  !function (w, d, t) {
+    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
+    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
+    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+
+    ttq.load('D9K1LTRC77U6L3SV6B9G');
+    ttq.page();
+  }(window, document, 'ttq');
+  </script>
+  <!-- TikTok Pixel Code End -->
+
+
   <style>
     :root {
       --red-main: #ff1f3d;
@@ -547,6 +561,10 @@
     const earnAmount = document.getElementById("earnAmount");
 
     function updateEarnings() {
+      if (!slider || !spendAmount || !earnAmount) {
+        return;
+      }
+
       const spend = Number(slider.value);
       const earn = spend * 8;
 
@@ -554,13 +572,16 @@
       earnAmount.textContent = `$${earn}`;
     }
 
-    slider.addEventListener("input", updateEarnings);
-    updateEarnings();
+    if (slider && spendAmount && earnAmount) {
+      slider.addEventListener("input", updateEarnings);
+      updateEarnings();
+    }
 
     function getIncomingSource() {
       const params = new URLSearchParams(window.location.search);
       return params.get("source");
     }
+
     function buildOutgoingLink() {
       const baseLink = "https://linkthem.net/aff_c?offer_id=4615&aff_id=146544";
       const source = getIncomingSource();
@@ -573,8 +594,25 @@
       return baseLink + separator + "source=" + encodeURIComponent(source);
     }
 
+    let offerRedirectStarted = false;
+
     function goToOffer() {
-      window.location.href = buildOutgoingLink();
+      if (offerRedirectStarted) {
+        return;
+      }
+
+      offerRedirectStarted = true;
+      const outgoingLink = buildOutgoingLink();
+
+      if (window.ttq && typeof window.ttq.track === "function") {
+        ttq.track("ClickButton", {
+          content_name: "Testerup Download CTA"
+        });
+      }
+
+      setTimeout(function () {
+        window.location.href = outgoingLink;
+      }, 350);
     }
   </script>
 </body>
