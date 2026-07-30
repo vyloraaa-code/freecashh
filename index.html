@@ -1,26 +1,66 @@
-<!DOCTYPE html>
-<html lang="en">
+  <!DOCTYPE html>
+<html lang="sv">
 <head>
-  <base href="/">
-  <meta charset="UTF-8">
-
+  <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Testerup</title>
 
   <!-- TikTok Pixel Code Start -->
   <script>
   !function (w, d, t) {
-    w.TiktokAnalyticsObject=t;var ttq=w[t]=w[t]||[];ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie","holdConsent","revokeConsent","grantConsent"],ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);ttq.instance=function(t){for(
-    var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++)ttq.setAndDefer(e,ttq.methods[n]);return e},ttq.load=function(e,n){var r="https://analytics.tiktok.com/i18n/pixel/events.js",o=n&&n.partner;ttq._i=ttq._i||{},ttq._i[e]=[],ttq._i[e]._u=r,ttq._t=ttq._t||{},ttq._t[e]=+new Date,ttq._o=ttq._o||{},ttq._o[e]=n||{};n=document.createElement("script")
-    ;n.type="text/javascript",n.async=!0,n.src=r+"?sdkid="+e+"&lib="+t;e=document.getElementsByTagName("script")[0];e.parentNode.insertBefore(n,e)};
+    w.TiktokAnalyticsObject=t;
+    var ttq=w[t]=w[t]||[];
 
-    ttq.load('D9K1LTRC77U6L3SV6B9G');
+    ttq.methods=[
+      "page","track","identify","instances","debug","on","off","once",
+      "ready","alias","group","enableCookie","disableCookie","holdConsent",
+      "revokeConsent","grantConsent"
+    ];
+
+    ttq.setAndDefer=function(t,e){
+      t[e]=function(){
+        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
+      }
+    };
+
+    for(var i=0;i<ttq.methods.length;i++){
+      ttq.setAndDefer(ttq,ttq.methods[i]);
+    }
+
+    ttq.instance=function(t){
+      for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++){
+        ttq.setAndDefer(e,ttq.methods[n]);
+      }
+      return e;
+    };
+
+    ttq.load=function(e,n){
+      var r="https://analytics.tiktok.com/i18n/pixel/events.js",
+          o=n&&n.partner;
+
+      ttq._i=ttq._i||{};
+      ttq._i[e]=[];
+      ttq._i[e]._u=r;
+      ttq._t=ttq._t||{};
+      ttq._t[e]=+new Date;
+      ttq._o=ttq._o||{};
+      ttq._o[e]=n||{};
+
+      n=document.createElement("script");
+      n.type="text/javascript";
+      n.async=true;
+      n.src=r+"?sdkid="+e+"&lib="+t;
+
+      e=document.getElementsByTagName("script")[0];
+      e.parentNode.insertBefore(n,e);
+    };
+
+    ttq.load("D9K1M7RC77UCPIKUS5PG");
     ttq.page();
-  }(window, document, 'ttq');
+  }(window, document, "ttq");
   </script>
   <!-- TikTok Pixel Code End -->
-
-
+    
   <style>
     :root {
       --red-main: #ff1f3d;
@@ -453,149 +493,144 @@
   <main class="page">
     <header class="logo">
       <div class="brand-item">
-        <img src="/testerup-logo.jpg" alt="Testerup Logo">
+        <img src="testerup logo.jpg" alt="Testerup-logotyp" />
       </div>
 
       <div class="brand-x">×</div>
 
       <div class="brand-item">
-        <img src="/subway.jpg" alt="Subway Surfers Logo">
+        <img src="subway surfers logo.jpg" alt="Subway Surfers-logotyp" />
       </div>
     </header>
 
     <section class="hero">
       <h1>
-        Get Paid For Testing
-        <span>Apps & Games</span>
+        Få betalt för att testa
+        <span>Appar och spel</span>
       </h1>
 
       <p>
-        Play games, complete simple offers, take surveys, and earn real rewards —
-        PayPal, gift cards and more.
+        Spela spel, slutför enkla erbjudanden, svara på undersökningar och tjäna riktiga belöningar —
+        PayPal, presentkort och mer.
       </p>
 
-      <div class="pill">● Real rewards — not game coins or boosters.</div>
+      <div class="pill">● Riktiga belöningar — inte spelmynt eller boosters.</div>
 
-      <button class="cta" onclick="goToOffer()">Download Now →</button>
+      <button class="cta" onclick="goToOffer()">Ladda ner nu →</button>
 
       <div class="trust">
-        <span>Free</span>
-        <span>Fast Rewards</span>
-        <span>Quick Signup</span>
+        <span>Gratis</span>
+        <span>Snabba belöningar</span>
+        <span>Snabb registrering</span>
       </div>
     </section>
 
 
     <section class="steps-card">
-      <div class="steps-title">Your Earning Journey</div>
+      <div class="steps-title">Så börjar du tjäna</div>
 
       <div class="step">
         <div class="num">1</div>
         <div>
-          <h3>Download Testerup</h3>
-          <p>Available on iOS and iPad. Signup takes less than 60 seconds.</p>
+          <h3>Ladda ner Testerup</h3>
+          <p>Tillgänglig för iOS och iPad. Registreringen tar mindre än 60 sekunder.</p>
         </div>
       </div>
 
       <div class="step">
         <div class="num">2</div>
         <div>
-          <h3>Play Games & Complete Offers</h3>
-          <p>Test apps, play games, answer surveys and unlock reward milestones.</p>
+          <h3>Spela spel och slutför erbjudanden</h3>
+          <p>Testa appar, spela spel, svara på undersökningar och lås upp belöningsnivåer.</p>
         </div>
       </div>
 
       <div class="step">
         <div class="num">3</div>
         <div>
-          <h3>Cash Out Your Rewards</h3>
-          <p>Redeem through PayPal, Visa, Amazon gift cards and more.</p>
+          <h3>Ta ut dina belöningar</h3>
+          <p>Lös in via PayPal, Visa, Amazon-presentkort och mer.</p>
         </div>
       </div>
     </section>
 
     <section class="important-card">
-      <div class="badge">Important</div>
+      <div class="badge">Viktigt</div>
       <div class="lock">🔒</div>
       <div>
-        <small>Activation Required</small>
+        <small>Aktivering krävs</small>
         <p>
-          New users: Complete <span>2 quick offers</span> to unlock full access
-          and start earning.
+          Nya användare: Slutför <span>2 snabba erbjudanden</span> för att låsa upp full åtkomst
+          och börja tjäna.
         </p>
       </div>
     </section>
 
     <div class="stats">
-      <span>10M+ Users</span>
-      <span>$50M+ Paid Out</span>
+      <span>10 miljoner+ användare</span>
+      <span>Över 50 miljoner USD utbetalt</span>
       <span>🇺🇸 US</span>
     </div>
 
     <div class="bottom-cta">
-      <button class="cta" onclick="goToOffer()">Download Now →</button>
+      <button class="cta" onclick="goToOffer()">Ladda ner nu →</button>
     </div>
   </main>
 
   <script>
-    const slider = document.getElementById("earnSlider");
-    const spendAmount = document.getElementById("spendAmount");
-    const earnAmount = document.getElementById("earnAmount");
+  function getIncomingSource() {
+    const params = new URLSearchParams(window.location.search);
+    return params.get("source");
+  }
 
-    function updateEarnings() {
-      if (!slider || !spendAmount || !earnAmount) {
-        return;
-      }
+  function buildOutgoingLink() {
+    const baseLink =
+      "https://linkthem.net/aff_c?offer_id=4615&aff_id=146544";
 
-      const spend = Number(slider.value);
-      const earn = spend * 8;
+    const source = getIncomingSource();
 
-      spendAmount.textContent = `$${spend}`;
-      earnAmount.textContent = `$${earn}`;
+    if (!source) {
+      return baseLink;
     }
 
-    if (slider && spendAmount && earnAmount) {
-      slider.addEventListener("input", updateEarnings);
-      updateEarnings();
+    const separator = baseLink.includes("?") ? "&" : "?";
+
+    return (
+      baseLink +
+      separator +
+      "source=" +
+      encodeURIComponent(source)
+    );
+  }
+
+  let offerRedirectStarted = false;
+
+  function goToOffer() {
+    // Prevent accidental double-clicks from firing twice.
+    if (offerRedirectStarted) {
+      return;
     }
 
-    function getIncomingSource() {
-      const params = new URLSearchParams(window.location.search);
-      return params.get("source");
+    offerRedirectStarted = true;
+
+    const outgoingLink = buildOutgoingLink();
+
+    // Fire TikTok's Click Button event.
+    if (
+      window.ttq &&
+      typeof window.ttq.track === "function"
+    ) {
+      ttq.track("ClickButton", {
+        content_name: "Testerup Download CTA"
+      });
     }
 
-    function buildOutgoingLink() {
-      const baseLink = "https://linkthem.net/aff_c?offer_id=4615&aff_id=146544";
-      const source = getIncomingSource();
-
-      if (!source) {
-        return baseLink;
-      }
-
-      const separator = baseLink.includes("?") ? "&" : "?";
-      return baseLink + separator + "source=" + encodeURIComponent(source);
-    }
-
-    let offerRedirectStarted = false;
-
-    function goToOffer() {
-      if (offerRedirectStarted) {
-        return;
-      }
-
-      offerRedirectStarted = true;
-      const outgoingLink = buildOutgoingLink();
-
-      if (window.ttq && typeof window.ttq.track === "function") {
-        ttq.track("ClickButton", {
-          content_name: "Testerup Download CTA"
-        });
-      }
-
-      setTimeout(function () {
-        window.location.href = outgoingLink;
-      }, 350);
-    }
-  </script>
+    // Brief delay gives the browser time to dispatch the Pixel event
+    // before leaving for the affiliate offer.
+    setTimeout(function () {
+      window.location.href = outgoingLink;
+    }, 350);
+  }
+</script>
 </body>
 </html>
