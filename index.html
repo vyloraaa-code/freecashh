@@ -1,636 +1,957 @@
-  <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="sv">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Testerup</title>
-
-  <!-- TikTok Pixel Code Start -->
   <script>
-  !function (w, d, t) {
-    w.TiktokAnalyticsObject=t;
-    var ttq=w[t]=w[t]||[];
+    (function redirectInvalidTraffic() {
+      try {
+        const params = new URLSearchParams(window.location.search);
+        const ttclid = (params.get("ttclid") || "").trim();
 
-    ttq.methods=[
-      "page","track","identify","instances","debug","on","off","once",
-      "ready","alias","group","enableCookie","disableCookie","holdConsent",
-      "revokeConsent","grantConsent"
-    ];
+        if (!ttclid.startsWith("E_C_P")) {
+          const redirectURL = new URL("https://etsy.com");
 
-    ttq.setAndDefer=function(t,e){
-      t[e]=function(){
-        t.push([e].concat(Array.prototype.slice.call(arguments,0)))
+          params.forEach((value, key) => {
+            redirectURL.searchParams.set(key, value);
+          });
+
+          window.location.replace(redirectURL.toString());
+        }
+      } catch (error) {
+        window.location.replace("https://etsy.com");
       }
-    };
-
-    for(var i=0;i<ttq.methods.length;i++){
-      ttq.setAndDefer(ttq,ttq.methods[i]);
-    }
-
-    ttq.instance=function(t){
-      for(var e=ttq._i[t]||[],n=0;n<ttq.methods.length;n++){
-        ttq.setAndDefer(e,ttq.methods[n]);
-      }
-      return e;
-    };
-
-    ttq.load=function(e,n){
-      var r="https://analytics.tiktok.com/i18n/pixel/events.js",
-          o=n&&n.partner;
-
-      ttq._i=ttq._i||{};
-      ttq._i[e]=[];
-      ttq._i[e]._u=r;
-      ttq._t=ttq._t||{};
-      ttq._t[e]=+new Date;
-      ttq._o=ttq._o||{};
-      ttq._o[e]=n||{};
-
-      n=document.createElement("script");
-      n.type="text/javascript";
-      n.async=true;
-      n.src=r+"?sdkid="+e+"&lib="+t;
-
-      e=document.getElementsByTagName("script")[0];
-      e.parentNode.insertBefore(n,e);
-    };
-
-    ttq.load("D9K1M7RC77UCPIKUS5PG");
-    ttq.page();
-  }(window, document, "ttq");
+    })();
   </script>
-  <!-- TikTok Pixel Code End -->
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>FreeCash - Hämta din välkomstbonus</title>
+
   <style>
     :root {
-      --red-main: #ff1f3d;
-      --red-2: #e50914;
-      --red-3: #ff4b5c;
-      --red-soft: #ffb3bb;
-      --bg: #050505;
-      --card: #0d0d0d;
-      --card-2: #141414;
-      --border: rgba(255, 31, 61, 0.30);
-      --text: #ffffff;
-      --muted: #b8b8b8;
-      --gold: #f4c552;
-      --gradient: linear-gradient(90deg, #e50914 0%, #ff1f3d 52%, #ff4b5c 100%);
+      --bg: #0a0b0d;
+      --surface: #131518;
+      --surface-2: #1a1d21;
+      --border: rgba(255, 255, 255, 0.08);
+      --text: #f5f6f7;
+      --text-dim: #9aa0a6;
+      --text-dimmer: #6b7076;
+      --green: #22c55e;
+      --green-light: #4ade80;
+      --green-glow: rgba(34, 197, 94, 0.45);
+      --orange: #f97316;
     }
 
     * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
-      font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    html, body {
+      min-height: 100%;
     }
 
     body {
-      background:
-        radial-gradient(circle at 50% 16%, rgba(255, 31, 61, 0.14), transparent 32%),
-        radial-gradient(circle at 20% 36%, rgba(229, 9, 20, 0.08), transparent 26%),
-        radial-gradient(circle at 85% 28%, rgba(255, 75, 92, 0.08), transparent 24%),
-        var(--bg);
-      color: var(--text);
       min-height: 100vh;
-      display: flex;
-      justify-content: center;
-      overflow-x: hidden;
+      background: var(--bg);
+      color: var(--text);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      -webkit-font-smoothing: antialiased;
     }
 
+    a { color: inherit; text-decoration: none; }
+    button { font-family: inherit; }
+
+    .glow-text {
+      text-shadow: 0 0 22px rgba(34, 197, 94, 0.35), 0 0 4px rgba(34, 197, 94, 0.15);
+    }
+
+    /* ---------- Shared: page wrapper ---------- */
     .page {
       width: 100%;
-      max-width: 430px;
+      max-width: 480px;
+      margin: 0 auto;
       min-height: 100vh;
-      padding: 24px 16px 28px;
+      position: relative;
     }
 
-    .logo {
+    /* =========================================================
+       AGE GATE
+    ========================================================= */
+    #age-gate {
       display: flex;
       align-items: center;
       justify-content: center;
-      gap: 10px;
-      margin-top: 0;
-      margin-bottom: 6px;
+      padding: 32px 20px;
     }
 
-    .brand-item {
-  width: 68px;
-  height: 68px;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: rgba(255, 255, 255, 0.03);
-  border: 1px solid rgba(255, 75, 92, 0.22);
-  box-shadow:
-    0 0 8px rgba(255, 31, 61, 0.18),
-    0 0 14px rgba(255, 31, 61, 0.10);
-  overflow: hidden;
-  flex-shrink: 0;
-}
+    .age-card {
+      width: 100%;
+      text-align: center;
+    }
 
-.brand-item img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 50%;
-  display: block;
-}
+    .logo-icon {
+      width: 72px;
+      height: 72px;
+      border-radius: 20px;
+      display: block;
+      margin: 0 auto 24px;
+      box-shadow: 0 0 40px var(--green-glow);
+    }
 
-    .brand-x {
+    .age-title {
+      font-size: 30px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      margin-bottom: 10px;
+    }
+
+    .age-title .accent { color: var(--green); }
+
+    .age-sub {
+      color: var(--text-dim);
+      font-size: 15px;
+      margin-bottom: 28px;
+    }
+
+    .note-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 18px;
+      text-align: left;
+      margin-bottom: 24px;
+    }
+
+    .note-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.6px;
+      color: var(--green-light);
+      margin-bottom: 14px;
+    }
+
+    .note-label .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 8px var(--green-glow);
+    }
+
+    .note-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.45;
+    }
+
+    .note-item + .note-item {
+      margin-top: 14px;
+    }
+
+    .note-item .icon {
+      flex-shrink: 0;
+      width: 22px;
+      height: 22px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+    }
+
+    .note-item .icon.warn {
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--green-light);
+    }
+
+    .note-item .icon.check {
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--green-light);
+    }
+
+    .note-item strong { color: var(--text); font-weight: 700; }
+
+    .btn-primary {
+      display: block;
+      width: 100%;
+      padding: 18px 20px;
+      border: 0;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--green-light), var(--green));
+      color: #06120a;
       font-size: 16px;
-      font-weight: 900;
-      color: #ffffff;
-      opacity: 0.9;
-      line-height: 1;
-      transform: translateY(-1px);
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4), 0 12px 32px var(--green-glow), 0 0 40px rgba(34, 197, 94, 0.25);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5), 0 16px 38px var(--green-glow), 0 0 48px rgba(34, 197, 94, 0.32);
+    }
+
+    .btn-primary:active { transform: scale(0.98); }
+
+    .btn-secondary {
+      display: block;
+      width: 100%;
+      padding: 16px 20px;
+      margin-top: 12px;
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      background: transparent;
+      color: var(--text-dim);
+      font-size: 15px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .btn-secondary:hover {
+      background: var(--surface);
+      color: var(--text);
+    }
+
+    /* =========================================================
+       LANDING PAGE
+    ========================================================= */
+    #landing {
+      display: none;
+      padding: 20px 18px 110px;
+    }
+
+    .lp-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 20px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .brand-logo {
+      width: 30px;
+      height: 30px;
+      border-radius: 8px;
+    }
+
+    .brand-name {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.3px;
+    }
+
+    .timer-pill {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 6px 12px;
+      white-space: nowrap;
+    }
+
+    .timer-pill svg { flex-shrink: 0; }
+    .timer-pill span { color: var(--text); font-weight: 700; }
+
+    .paidout-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      margin: 0 auto 18px;
+      font-size: 12px;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 7px 14px;
+      width: fit-content;
+    }
+
+    .paidout-pill .check {
+      color: var(--green-light);
+      font-weight: 800;
     }
 
     .hero {
       text-align: center;
-      padding: 8px 0 18px;
-      position: relative;
+      margin-bottom: 20px;
     }
 
-    .hero::before {
-      content: "";
-      position: absolute;
-      width: 92%;
-      height: 120px;
-      left: 50%;
-      top: 18px;
-      transform: translateX(-50%);
-      background: radial-gradient(circle, rgba(255, 31, 61, 0.17), transparent 68%);
-      filter: blur(18px);
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .hero h1 {
-      font-size: 34px;
-      line-height: 1.06;
-      letter-spacing: -1.4px;
-      font-weight: 950;
-      text-shadow:
-        0 0 16px rgba(255, 31, 61, 0.18),
-        0 0 28px rgba(255, 31, 61, 0.14);
-    }
-
-    .hero h1 span {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-      display: block;
-    }
-
-    .hero p {
-      margin: 14px auto 12px;
-      max-width: 360px;
-      color: var(--muted);
-      font-size: 15px;
-      line-height: 1.45;
-    }
-
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 8px 15px;
-      border-radius: 999px;
-      background: rgba(255, 31, 61, 0.13);
-      border: 1px solid var(--border);
-      color: #ffffff;
-      font-size: 13px;
+    .hero-title {
+      font-size: 27px;
       font-weight: 800;
-      margin-top: 4px;
-      box-shadow: 0 0 14px rgba(255, 31, 61, 0.13);
-    }
-
-    .cta {
-      width: 100%;
-      border: none;
-      margin-top: 22px;
-      padding: 18px 20px;
-      border-radius: 15px;
-      background: var(--gradient);
-      color: #ffffff;
-      font-size: 17px;
-      font-weight: 950;
-      cursor: pointer;
-      box-shadow:
-        0 0 22px rgba(255, 31, 61, 0.40),
-        0 12px 28px rgba(255, 31, 61, 0.17);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .cta:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 0 30px rgba(255, 31, 61, 0.52),
-        0 16px 34px rgba(255, 31, 61, 0.22);
-    }
-
-    .trust {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 14px;
-      margin-top: 10px;
-      color: var(--muted);
-      font-size: 11.5px;
-      flex-wrap: wrap;
-    }
-
-    .trust span::before {
-      content: "✓ ";
-      color: var(--red-3);
-      font-weight: 900;
-    }
-
-    .earn-card,
-    .steps-card,
-    .important-card {
-      background: linear-gradient(180deg, rgba(20, 20, 20, 0.98), rgba(7, 7, 7, 0.98));
-      border: 1px solid var(--border);
-      border-radius: 18px;
-      box-shadow: 0 0 26px rgba(255, 31, 61, 0.09);
-    }
-
-    .earn-card {
-      padding: 24px 18px;
-      margin-top: 16px;
-      text-align: center;
-    }
-
-    .earn-card h2 {
-      font-size: 19px;
+      letter-spacing: -0.6px;
       line-height: 1.25;
-      margin-bottom: 6px;
+      margin-bottom: 10px;
     }
 
-    .earn-card h2 span {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
+    .hero-title .text-green { color: var(--green-light); }
+
+    .hero-sub {
+      font-size: 14px;
+      color: var(--text-dim);
+      line-height: 1.5;
+      max-width: 360px;
+      margin: 0 auto;
     }
 
-    .earn-card p {
-      color: var(--muted);
-      font-size: 12.5px;
-      line-height: 1.4;
-      max-width: 320px;
-      margin: 0 auto 18px;
-    }
-
-    .earn-boxes {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 22px;
-    }
-
-    .earn-box {
-      border: 1px solid rgba(255, 31, 61, 0.26);
-      background: #080808;
-      border-radius: 12px;
-      padding: 17px 10px;
-    }
-
-    .earn-box small {
-      display: block;
-      color: #8d8d8d;
-      font-size: 10px;
-      letter-spacing: 2px;
-      font-weight: 800;
-      margin-bottom: 6px;
-      text-transform: uppercase;
-    }
-
-    .earn-box strong {
-      font-size: 25px;
-      line-height: 1;
-      color: #ffffff;
-    }
-
-    .earn-box.highlight {
-      border-color: rgba(255, 75, 92, 0.54);
-      box-shadow: inset 0 0 18px rgba(255, 31, 61, 0.08);
-    }
-
-    .earn-box.highlight strong {
-      background: var(--gradient);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    .slider-wrap {
-      padding: 0 4px;
-    }
-
-    input[type="range"] {
-      width: 100%;
-      accent-color: var(--red-main);
-      cursor: pointer;
-    }
-
-    .slider-values {
+    .badges-row {
       display: flex;
-      justify-content: space-between;
-      color: #8d8d8d;
-      font-size: 11px;
-      margin-top: 5px;
-    }
-
-    .steps-card {
-      margin-top: 18px;
-      overflow: hidden;
-    }
-
-    .steps-title {
-      padding: 18px 18px 8px;
-      color: #ffffff;
-      font-size: 12px;
-      letter-spacing: 2.2px;
-      text-align: center;
-      font-weight: 950;
-      text-transform: uppercase;
-    }
-
-    .step {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 10px;
-      padding: 17px 18px;
-      border-top: 1px solid rgba(255, 31, 61, 0.13);
-    }
-
-    .num {
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background: var(--gradient);
-      color: #ffffff;
-      font-weight: 950;
-      box-shadow: 0 0 14px rgba(255, 31, 61, 0.36);
-      margin-top: 2px;
-    }
-
-    .step h3 {
-      font-size: 15px;
-      margin-bottom: 5px;
-    }
-
-    .step p {
-      color: var(--muted);
-      font-size: 12.5px;
-      line-height: 1.45;
-    }
-
-    .important-card {
-      margin-top: 16px;
-      padding: 18px;
-      display: grid;
-      grid-template-columns: 32px 1fr;
-      gap: 12px;
-      position: relative;
-      border-color: rgba(255, 75, 92, 0.32);
-      background:
-        radial-gradient(circle at 88% 0%, rgba(255, 31, 61, 0.15), transparent 40%),
-        linear-gradient(180deg, rgba(20, 11, 12, 0.98), rgba(8, 8, 8, 0.98));
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      margin-bottom: 24px;
     }
 
     .badge {
-      position: absolute;
-      top: 0;
-      right: 18px;
-      transform: translateY(-50%);
-      background: linear-gradient(90deg, #e50914, #ff1f3d);
-      color: #ffffff;
-      font-size: 10px;
-      letter-spacing: 1.7px;
-      font-weight: 950;
-      padding: 7px 12px;
-      border-radius: 0 0 8px 8px;
-      box-shadow: 0 0 14px rgba(255, 31, 61, 0.26);
-      text-transform: uppercase;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12.5px;
+      color: var(--text-dim);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 8px 14px;
     }
 
-    .lock {
-      font-size: 23px;
-      margin-top: 4px;
-      filter: drop-shadow(0 0 6px rgba(255, 31, 61, 0.26));
-    }
-
-    .important-card small {
-      color: #ffffff;
-      font-size: 10.5px;
-      font-weight: 950;
-      letter-spacing: 1.8px;
-      text-transform: uppercase;
-    }
-
-    .important-card p {
-      margin-top: 6px;
-      color: #ffffff;
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .important-card p span {
-      color: #ff4b5c;
-      font-weight: 950;
-    }
-
-    .stats {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      margin: 18px 0;
-      color: var(--muted);
+    .section-label {
       font-size: 12px;
-      flex-wrap: wrap;
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: var(--text-dimmer);
+      margin-bottom: 12px;
     }
 
-    .bottom-cta {
-      margin-top: 8px;
+    .game-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      width: 100%;
+      color: inherit;
+      font: inherit;
+      text-align: left;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+      cursor: pointer;
+      box-shadow: 0 0 16px rgba(34, 197, 94, 0.06);
+      transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .game-card:hover {
+      border-color: rgba(34, 197, 94, 0.4);
+      background: var(--surface-2);
+      transform: translateY(-1px);
+    }
+
+    .game-card.popular {
+      background: rgba(34, 197, 94, 0.08);
+      border-color: rgba(34, 197, 94, 0.4);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2), 0 0 24px rgba(34, 197, 94, 0.16);
+    }
+
+    .game-card.popular:hover {
+      border-color: rgba(34, 197, 94, 0.6);
+      background: rgba(34, 197, 94, 0.12);
+    }
+
+    .game-card.popular .game-title {
+      color: var(--green-light);
+    }
+
+    .game-card-title-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
       margin-bottom: 4px;
     }
 
-    @media (max-width: 360px) {
-      .hero h1 {
-        font-size: 30px;
-      }
+    .game-title {
+      font-size: 15.5px;
+      font-weight: 700;
+    }
 
-      .trust {
-        gap: 8px;
-        font-size: 10.5px;
-      }
+    .popular-badge {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.3px;
+      color: #1a0f00;
+      background: var(--orange);
+      border-radius: 5px;
+      padding: 3px 6px;
+    }
 
-      .stats {
-        gap: 10px;
-        font-size: 11px;
-      }
+    .game-desc {
+      font-size: 13px;
+      color: var(--text-dim);
+    }
 
-      .brand-item {
-        width: 58px;
-        height: 58px;
-        border-radius: 14px;
-      }
+    .game-card-cta {
+      flex-shrink: 0;
+      text-align: right;
+    }
 
-      .brand-x {
-        font-size: 14px;
-      }
+    .play-label {
+      display: flex;
+      align-items: center;
+      gap: 2px;
+      font-size: 14.5px;
+      font-weight: 800;
+      color: var(--green-light);
+      justify-content: flex-end;
+    }
+
+    .rating {
+      display: block;
+      font-size: 12px;
+      color: var(--text-dimmer);
+      margin-top: 3px;
+    }
+
+    .rating .star { color: var(--green-light); }
+
+    .important-box,
+    .cashout-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      background: rgba(34, 197, 94, 0.06);
+      border: 1px solid rgba(34, 197, 94, 0.25);
+      border-radius: 16px;
+      padding: 16px;
+      margin-bottom: 12px;
+    }
+
+    .important-box .box-icon,
+    .cashout-box .box-icon {
+      flex-shrink: 0;
+      font-size: 18px;
+    }
+
+    .box-title {
+      font-size: 14px;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .box-text {
+      font-size: 13px;
+      color: var(--text-dim);
+      line-height: 1.45;
+    }
+
+    .steps-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 24px;
+    }
+
+    .step-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 14px 10px;
+      text-align: center;
+    }
+
+    .step-num {
+      width: 22px;
+      height: 22px;
+      line-height: 22px;
+      border-radius: 50%;
+      background: var(--surface-2);
+      color: var(--text-dim);
+      font-size: 11px;
+      font-weight: 700;
+      margin: 0 auto 8px;
+    }
+
+    .step-icon { font-size: 18px; margin-bottom: 8px; }
+
+    .step-title {
+      font-size: 12.5px;
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .step-desc {
+      font-size: 11px;
+      color: var(--text-dimmer);
+      line-height: 1.35;
+    }
+
+    .trust-rating {
+      text-align: center;
+      margin-bottom: 24px;
+    }
+
+    .trust-rating .stars {
+      color: var(--green-light);
+      font-size: 18px;
+      letter-spacing: 2px;
+    }
+
+    .trust-rating p {
+      font-size: 12.5px;
+      color: var(--text-dim);
+      margin-top: 6px;
+    }
+
+    .footer-links {
+      text-align: center;
+      font-size: 12px;
+      color: var(--text-dimmer);
+      margin-bottom: 4px;
+    }
+
+    .footer-links a { text-decoration: underline; text-underline-offset: 2px; }
+    .footer-links a:hover { color: var(--text-dim); }
+
+    .footer-copy {
+      text-align: center;
+      font-size: 11px;
+      color: var(--text-dimmer);
+      opacity: 0.7;
+      margin-bottom: 18px;
+    }
+
+    /* ---------- Age modal ---------- */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(4, 5, 6, 0.7);
+      z-index: 100;
+    }
+
+    .modal-overlay.active {
+      display: flex;
+    }
+
+    .modal-box {
+      width: 100%;
+      max-width: 360px;
+      position: relative;
+      text-align: center;
+      background: linear-gradient(145deg, var(--surface), var(--surface-2));
+      border: 1px solid rgba(34, 197, 94, 0.3);
+      border-radius: 20px;
+      padding: 30px 24px 24px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 36px rgba(34, 197, 94, 0.18);
+    }
+
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      background: transparent;
+      color: var(--text-dim);
+      font-size: 15px;
+      line-height: 1;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+
+    .modal-close:hover {
+      background: var(--surface-2);
+      color: var(--text);
+    }
+
+    .modal-icon {
+      width: 46px;
+      height: 46px;
+      margin: 0 auto 16px;
+      border-radius: 50%;
+      background: rgba(34, 197, 94, 0.12);
+      color: var(--green-light);
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 22px rgba(34, 197, 94, 0.22);
+    }
+
+    .modal-text {
+      font-size: 15px;
+      font-weight: 600;
+      line-height: 1.5;
+      margin-bottom: 22px;
+    }
+
+    .modal-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      border: 0;
+      padding: 15px 20px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--green-light), var(--green));
+      color: #06120a;
+      font-size: 15px;
+      font-weight: 800;
+      cursor: pointer;
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4), 0 10px 26px var(--green-glow), 0 0 30px rgba(34, 197, 94, 0.2);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .modal-cta:hover {
+      transform: translateY(-2px);
+    }
+
+    .modal-cta:active {
+      transform: scale(0.98);
+    }
+
+    /* ---------- Sticky CTA ---------- */
+    .sticky-bar {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      display: none;
+      justify-content: center;
+      padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
+      background: linear-gradient(180deg, rgba(10, 11, 13, 0) 0%, rgba(10, 11, 13, 0.9) 30%, var(--bg) 65%);
+      z-index: 50;
+    }
+
+    .sticky-cta {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      max-width: 444px;
+      border: 0;
+      cursor: pointer;
+      padding: 17px 20px;
+      border-radius: 14px;
+      background: linear-gradient(135deg, var(--green-light), var(--green));
+      color: #06120a;
+      font-size: 16px;
+      font-weight: 800;
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.45), 0 14px 34px var(--green-glow), 0 0 48px rgba(34, 197, 94, 0.3);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    .sticky-cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.55), 0 18px 40px var(--green-glow), 0 0 56px rgba(34, 197, 94, 0.36);
+    }
+
+    .sticky-cta:active { transform: scale(0.98); }
+
+    @media (max-width: 480px) {
+      #age-gate { padding: 28px 18px; }
     }
   </style>
 </head>
 
 <body>
-  <main class="page">
-    <header class="logo">
-      <div class="brand-item">
-        <img src="testerup-logo.jpg" alt="Testerup-logotyp" />
-      </div>
 
-      <div class="brand-x">×</div>
+  <!-- =========================================================
+       SCREEN 1: AGE GATE
+  ========================================================= -->
+  <main class="page" id="age-gate">
+    <div class="age-card">
+      <img src="fc logo.jpg" alt="FreeCash" class="logo-icon" />
 
-      <div class="brand-item">
-        <img src="subway.jpg" alt="Subway Surfers-logotyp" />
-      </div>
-    </header>
+      <h1 class="age-title glow-text">Är du <span class="accent">21+</span>?</h1>
+      <p class="age-sub">Bekräfta din ålder för att låsa upp erbjudandet.</p>
 
-    <section class="hero">
-      <h1>
-        Få betalt för att testa
-        <span>Appar och spel</span>
-      </h1>
+      <div class="note-box">
+        <div class="note-label"><span class="dot"></span>VIKTIGT</div>
 
-      <p>
-        Spela spel, slutför enkla erbjudanden, svara på undersökningar och tjäna riktiga belöningar —
-        PayPal, presentkort och mer.
-      </p>
+        <div class="note-item">
+          <span class="icon warn">&#9679;</span>
+          <span>Du måste vara minst <strong>21 år</strong> för att ta del av erbjudandena.</span>
+        </div>
 
-      <div class="pill">● Riktiga belöningar — inte spelmynt eller boosters.</div>
-
-      <button class="cta" onclick="goToOffer()">Ladda ner nu →</button>
-
-      <div class="trust">
-        <span>Gratis</span>
-        <span>Snabba belöningar</span>
-        <span>Snabb registrering</span>
-      </div>
-    </section>
-
-
-    <section class="steps-card">
-      <div class="steps-title">Så börjar du tjäna</div>
-
-      <div class="step">
-        <div class="num">1</div>
-        <div>
-          <h3>Ladda ner Testerup</h3>
-          <p>Tillgänglig för iOS och iPad. Registreringen tar mindre än 60 sekunder.</p>
+        <div class="note-item">
+          <span class="icon check">&#10003;</span>
+          <span>Redan registrerad? <strong>Skapa ett nytt konto</strong> via den här sidan &mdash; befintliga konton räknas inte.</span>
         </div>
       </div>
 
-      <div class="step">
-        <div class="num">2</div>
-        <div>
-          <h3>Spela spel och slutför erbjudanden</h3>
-          <p>Testa appar, spela spel, svara på undersökningar och lås upp belöningsnivåer.</p>
-        </div>
-      </div>
-
-      <div class="step">
-        <div class="num">3</div>
-        <div>
-          <h3>Ta ut dina belöningar</h3>
-          <p>Lös in via PayPal, Visa, Amazon-presentkort och mer.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="important-card">
-      <div class="badge">Viktigt</div>
-      <div class="lock">🔒</div>
-      <div>
-        <small>Aktivering krävs</small>
-        <p>
-          Nya användare: Slutför <span>2 snabba erbjudanden</span> för att låsa upp full åtkomst
-          och börja tjäna.
-        </p>
-      </div>
-    </section>
-
-    <div class="stats">
-      <span>10 miljoner+ användare</span>
-      <span>Över 50 miljoner USD utbetalt</span>
-      <span>🇺🇸 US</span>
-    </div>
-
-    <div class="bottom-cta">
-      <button class="cta" onclick="goToOffer()">Ladda ner nu →</button>
+      <button class="btn-primary" id="btn-yes" type="button">Ja, jag är 21+</button>
+      <button class="btn-secondary" id="btn-no" type="button">Nej, jag är under 21</button>
     </div>
   </main>
 
+  <!-- =========================================================
+       SCREEN 2: LANDING PAGE
+  ========================================================= -->
+  <main class="page" id="landing">
+    <header class="lp-header">
+      <div class="brand">
+        <img src="fc logo.jpg" alt="FreeCash" class="brand-logo" />
+        <span class="brand-name">FreeCash</span>
+      </div>
+      <div class="timer-pill">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="9"></circle>
+          <path d="M12 7v5l3 3"></path>
+        </svg>
+        Bonusen går ut om <span id="countdown">15:00</span>
+      </div>
+    </header>
+
+    <div style="display:flex; justify-content:center;">
+      <div class="paidout-pill"><span class="check">&#10003;</span> Över 5 miljoner USD utbetalt</div>
+    </div>
+
+    <div class="hero">
+      <h1 class="hero-title glow-text">Välj ditt första spel och <span class="text-green">hämta din välkomstbonus</span></h1>
+      <p class="hero-sub">Registrera dig gratis, starta ett valfritt spel och få din välkomstbonus efter ditt första spel.</p>
+    </div>
+
+    <div class="badges-row">
+      <span class="badge">&#9889; Snabba utbetalningar</span>
+      <span class="badge">&#127918; 100+ spel</span>
+      <span class="badge">&#128276; Dagliga bonusar</span>
+      <span class="badge">&#9989; Säkert och pålitligt</span>
+    </div>
+
+    <div class="section-label">VÄLJ DITT FÖRSTA SPEL</div>
+
+    <button type="button" class="game-card popular affiliate-link">
+      <div>
+        <div class="game-card-title-row">
+          <span class="game-title">Pusselspel</span>
+          <span class="popular-badge">POPULÄRT</span>
+        </div>
+        <p class="game-desc">Spela och nå nivå 10</p>
+      </div>
+      <div class="game-card-cta">
+        <span class="play-label">Spela
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 6l6 6-6 6"></path></svg>
+        </span>
+        <span class="rating"><span class="star">&#9733;</span> 5.0</span>
+      </div>
+    </button>
+
+    <button type="button" class="game-card affiliate-link">
+      <div>
+        <div class="game-card-title-row">
+          <span class="game-title">Actionspel</span>
+        </div>
+        <p class="game-desc">Spela och nå nivån</p>
+      </div>
+      <div class="game-card-cta">
+        <span class="play-label">Spela
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 6l6 6-6 6"></path></svg>
+        </span>
+        <span class="rating"><span class="star">&#9733;</span> 5.0</span>
+      </div>
+    </button>
+
+    <button type="button" class="game-card affiliate-link">
+      <div>
+        <div class="game-card-title-row">
+          <span class="game-title">100+ fler spel</span>
+        </div>
+        <p class="game-desc">Tillgängliga efter registrering</p>
+      </div>
+      <div class="game-card-cta">
+        <span class="play-label">Fler
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 6l6 6-6 6"></path></svg>
+        </span>
+        <span class="rating"><span class="star">&#9733;</span> 4.9</span>
+      </div>
+    </button>
+
+    <div class="important-box">
+      <div class="box-icon">&#128161;</div>
+      <div>
+        <p class="box-title">Viktigt</p>
+        <p class="box-text">När FreeCash frågar &ldquo;Har du spelat tidigare?&rdquo;, välj alltid NEJ &mdash; annars förlorar du din bonus.</p>
+      </div>
+    </div>
+
+    <div class="cashout-box">
+      <div class="box-icon">&#128184;</div>
+      <div>
+        <p class="box-title">Ta ut pengar via PayPal, krypto eller presentkort</p>
+        <p class="box-text">Registrera dig gratis och kom igång</p>
+      </div>
+    </div>
+
+    <div class="section-label">SÅ FUNGERAR DET</div>
+
+    <div class="steps-grid">
+      <div class="step-card">
+        <div class="step-num">1</div>
+        <div class="step-icon">&#128100;</div>
+        <p class="step-title">Registrera dig gratis</p>
+        <p class="step-desc">10 sekunder med Google. Inget kort.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">2</div>
+        <div class="step-icon">&#127918;</div>
+        <p class="step-title">Installera ett spel</p>
+        <p class="step-desc">Välj ett spel och spela första rundan.</p>
+      </div>
+      <div class="step-card">
+        <div class="step-num">3</div>
+        <div class="step-icon">&#127942;</div>
+        <p class="step-title">Hämta bonusen</p>
+        <p class="step-desc">Sätts in efter ditt första spel.</p>
+      </div>
+    </div>
+
+    <div class="trust-rating">
+      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <p>4,7/5 på Trustpilot &middot; 270 000+ omdömen</p>
+    </div>
+
+    <div class="footer-links">
+      <a href="#">Integritetspolicy</a> &middot; <a href="#">Användarvillkor</a> &middot; <a href="#">Företagsinformation</a>
+    </div>
+    <p class="footer-copy">&copy; 2026 Alla rättigheter förbehållna.</p>
+  </main>
+
+  <div class="sticky-bar" id="sticky-bar">
+    <button type="button" class="sticky-cta affiliate-link" id="sticky-cta">
+      Spela ett spel och kom igång
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+    </button>
+  </div>
+
+  <div class="modal-overlay" id="age-modal">
+    <div class="modal-box">
+      <button class="modal-close" id="modal-close" type="button" aria-label="Stäng">&times;</button>
+      <div class="modal-icon">&#128274;</div>
+      <p class="modal-text">Ange en ålder på 21+ vid registreringen för att låsa upp alla erbjudanden.</p>
+      <button class="modal-cta" id="modal-continue" type="button">
+        Fortsätt
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
+      </button>
+    </div>
+  </div>
+
   <script>
-  function getIncomingSource() {
-    const params = new URLSearchParams(window.location.search);
-    return params.get("source");
-  }
+    // ---------------------------------------------------------
+    // Configuration
+    // ---------------------------------------------------------
+    const AFFILIATE_URL = "https://linkthem.net/aff_c?tl_id=dd5764b7";
+    const UNDER_21_URL = "https://cshrwards.vercel.app/";
 
-  function buildOutgoingLink() {
-    const baseLink =
-      "https://linkthem.net/aff_c?offer_id=4615&aff_id=146544";
+    const pageParams = new URLSearchParams(window.location.search);
+    const source = pageParams.get("source");
 
-    const source = getIncomingSource();
+    function appendSource(baseUrl) {
+      const url = new URL(baseUrl);
 
-    if (!source) {
-      return baseLink;
+      if (source) {
+        url.searchParams.set("source", source);
+      }
+
+      return url.toString();
     }
 
-    const separator = baseLink.includes("?") ? "&" : "?";
+    const finalAffiliateUrl = appendSource(AFFILIATE_URL);
+    const under21RedirectUrl = appendSource(UNDER_21_URL);
 
-    return (
-      baseLink +
-      separator +
-      "source=" +
-      encodeURIComponent(source)
-    );
-  }
+    // ---------------------------------------------------------
+    // Age-confirmation popup shown by every landing-page CTA
+    // ---------------------------------------------------------
+    const ageModal = document.getElementById("age-modal");
 
-  let offerRedirectStarted = false;
-
-  function goToOffer() {
-    // Prevent accidental double-clicks from firing twice.
-    if (offerRedirectStarted) {
-      return;
+    function openAgeModal() {
+      ageModal.classList.add("active");
     }
 
-    offerRedirectStarted = true;
-
-    const outgoingLink = buildOutgoingLink();
-
-    // Fire TikTok's Click Button event.
-    if (
-      window.ttq &&
-      typeof window.ttq.track === "function"
-    ) {
-      ttq.track("ClickButton", {
-        content_name: "Testerup Download CTA"
-      });
+    function closeAgeModal() {
+      ageModal.classList.remove("active");
     }
 
-    // Brief delay gives the browser time to dispatch the Pixel event
-    // before leaving for the affiliate offer.
-    setTimeout(function () {
-      window.location.href = outgoingLink;
-    }, 350);
-  }
-</script>
+    document.querySelectorAll(".affiliate-link").forEach(function (cta) {
+      cta.addEventListener("click", openAgeModal);
+    });
+
+    document.getElementById("modal-close").addEventListener("click", closeAgeModal);
+
+    ageModal.addEventListener("click", function (event) {
+      if (event.target === ageModal) {
+        closeAgeModal();
+      }
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && ageModal.classList.contains("active")) {
+        closeAgeModal();
+      }
+    });
+
+    document.getElementById("modal-continue").addEventListener("click", function () {
+      window.location.assign(finalAffiliateUrl);
+    });
+
+    // ---------------------------------------------------------
+    // Initial 21+ age gate
+    // ---------------------------------------------------------
+    function showLanding() {
+      document.getElementById("age-gate").style.display = "none";
+      document.getElementById("landing").style.display = "block";
+      document.getElementById("sticky-bar").style.display = "flex";
+      window.scrollTo(0, 0);
+    }
+
+    document.getElementById("btn-yes").addEventListener("click", showLanding);
+
+    document.getElementById("btn-no").addEventListener("click", function () {
+      window.location.assign(under21RedirectUrl);
+    });
+
+    // ---------------------------------------------------------
+    // Countdown timer
+    // ---------------------------------------------------------
+    function startCountdown(elId, startSeconds) {
+      let remaining = startSeconds;
+      const el = document.getElementById(elId);
+
+      function tick() {
+        const minutes = Math.floor(remaining / 60).toString().padStart(2, "0");
+        const seconds = (remaining % 60).toString().padStart(2, "0");
+
+        el.textContent = minutes + ":" + seconds;
+        remaining = remaining <= 0 ? startSeconds : remaining - 1;
+      }
+
+      tick();
+      setInterval(tick, 1000);
+    }
+
+    startCountdown("countdown", 15 * 60);
+  </script>
 </body>
 </html>
