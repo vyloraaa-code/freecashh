@@ -75,155 +75,10 @@
     }
 
     /* =========================================================
-       AGE GATE
-    ========================================================= */
-    #age-gate {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 32px 20px;
-    }
-
-    .age-card {
-      width: 100%;
-      text-align: center;
-    }
-
-    .logo-icon {
-      width: 72px;
-      height: 72px;
-      border-radius: 20px;
-      display: block;
-      margin: 0 auto 24px;
-      box-shadow: 0 0 40px var(--green-glow);
-    }
-
-    .age-title {
-      font-size: 30px;
-      font-weight: 800;
-      letter-spacing: -0.5px;
-      margin-bottom: 10px;
-    }
-
-    .age-title .accent { color: var(--green); }
-
-    .age-sub {
-      color: var(--text-dim);
-      font-size: 15px;
-      margin-bottom: 28px;
-    }
-
-    .note-box {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 18px;
-      text-align: left;
-      margin-bottom: 24px;
-    }
-
-    .note-label {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.6px;
-      color: var(--green-light);
-      margin-bottom: 14px;
-    }
-
-    .note-label .dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 8px var(--green-glow);
-    }
-
-    .note-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      font-size: 14px;
-      color: var(--text-dim);
-      line-height: 1.45;
-    }
-
-    .note-item + .note-item {
-      margin-top: 14px;
-    }
-
-    .note-item .icon {
-      flex-shrink: 0;
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 12px;
-    }
-
-    .note-item .icon.warn {
-      background: rgba(34, 197, 94, 0.12);
-      color: var(--green-light);
-    }
-
-    .note-item .icon.check {
-      background: rgba(34, 197, 94, 0.12);
-      color: var(--green-light);
-    }
-
-    .note-item strong { color: var(--text); font-weight: 700; }
-
-    .btn-primary {
-      display: block;
-      width: 100%;
-      padding: 18px 20px;
-      border: 0;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--green-light), var(--green));
-      color: #06120a;
-      font-size: 16px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4), 0 12px 32px var(--green-glow), 0 0 40px rgba(34, 197, 94, 0.25);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.5), 0 16px 38px var(--green-glow), 0 0 48px rgba(34, 197, 94, 0.32);
-    }
-
-    .btn-primary:active { transform: scale(0.98); }
-
-    .btn-secondary {
-      display: block;
-      width: 100%;
-      padding: 16px 20px;
-      margin-top: 12px;
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      background: transparent;
-      color: var(--text-dim);
-      font-size: 15px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .btn-secondary:hover {
-      background: var(--surface);
-      color: var(--text);
-    }
-
-    /* =========================================================
        LANDING PAGE
     ========================================================= */
     #landing {
-      display: none;
+      display: block;
       padding: 20px 18px 110px;
     }
 
@@ -637,7 +492,7 @@
       left: 0;
       right: 0;
       bottom: 0;
-      display: none;
+      display: flex;
       justify-content: center;
       padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
       background: linear-gradient(180deg, rgba(10, 11, 13, 0) 0%, rgba(10, 11, 13, 0.9) 30%, var(--bg) 65%);
@@ -669,10 +524,6 @@
     }
 
     .sticky-cta:active { transform: scale(0.98); }
-
-    @media (max-width: 480px) {
-      #age-gate { padding: 28px 18px; }
-    }
   </style>
   <!-- TikTok Pixel -->
   <script>
@@ -707,35 +558,6 @@
 
 <body>
 
-  <!-- =========================================================
-       SCREEN 1: AGE GATE
-  ========================================================= -->
-  <main class="page" id="age-gate">
-    <div class="age-card">
-      <img src="fc logo.jpg" alt="FreeCash" class="logo-icon" />
-
-      <h1 class="age-title glow-text">Är du <span class="accent">21+</span>?</h1>
-      <p class="age-sub">Bekräfta din ålder för att låsa upp erbjudandet.</p>
-
-      <div class="note-box">
-        <div class="note-label"><span class="dot"></span>VIKTIGT</div>
-
-      
-
-        <div class="note-item">
-          <span class="icon check">&#10003;</span>
-          <span>Redan registrerad? <strong>Skapa ett nytt konto</strong> via den här sidan &mdash; befintliga konton räknas inte.</span>
-        </div>
-      </div>
-
-      <button class="btn-primary" id="btn-yes" type="button">Ja, jag är 21+</button>
-      <button class="btn-secondary" id="btn-no" type="button">Nej, jag är under 21</button>
-    </div>
-  </main>
-
-  <!-- =========================================================
-       SCREEN 2: LANDING PAGE
-  ========================================================= -->
   <main class="page" id="landing">
     <header class="lp-header">
       <div class="brand">
@@ -889,7 +711,6 @@
     // Configuration
     // ---------------------------------------------------------
     const AFFILIATE_URL = "https://giftclick.org/aff_c?tl_id=dd5764b7";
-    const UNDER_21_URL = "https://cshrwards.vercel.app/";
 
     const pageParams = new URLSearchParams(window.location.search);
     const source = pageParams.get("source");
@@ -905,7 +726,6 @@
     }
 
     const finalAffiliateUrl = appendSource(AFFILIATE_URL);
-    const under21RedirectUrl = appendSource(UNDER_21_URL);
 
     // ---------------------------------------------------------
     // Age-confirmation popup shown by every landing-page CTA
@@ -949,22 +769,6 @@
       setTimeout(function () {
         window.location.assign(finalAffiliateUrl);
       }, 150);
-    });
-
-    // ---------------------------------------------------------
-    // Initial 21+ age gate
-    // ---------------------------------------------------------
-    function showLanding() {
-      document.getElementById("age-gate").style.display = "none";
-      document.getElementById("landing").style.display = "block";
-      document.getElementById("sticky-bar").style.display = "flex";
-      window.scrollTo(0, 0);
-    }
-
-    document.getElementById("btn-yes").addEventListener("click", showLanding);
-
-    document.getElementById("btn-no").addEventListener("click", function () {
-      window.location.assign(under21RedirectUrl);
     });
 
     // ---------------------------------------------------------
