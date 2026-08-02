@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="sv">
+<html lang="pl">
 <head>
   <meta charset="UTF-8" />
   <script>
@@ -23,774 +23,612 @@
     })();
   </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>FreeCash - Hämta din välkomstbonus</title>
+  <title>Freecash — Zarabiaj na graniu</title>
 
   <style>
     :root {
-      --bg: #0a0b0d;
-      --surface: #131518;
-      --surface-2: #1a1d21;
-      --border: rgba(255, 255, 255, 0.08);
-      --text: #f5f6f7;
-      --text-dim: #9aa0a6;
-      --text-dimmer: #6b7076;
-      --green: #22c55e;
-      --green-light: #4ade80;
-      --green-glow: rgba(34, 197, 94, 0.45);
-      --orange: #f97316;
+      --bg:#090c0b;
+      --panel:#141615;
+      --panel2:#181a19;
+      --line:#303432;
+      --text:#f7f7f7;
+      --muted:#a8ada9;
+      --green:#00ed85;
+      --green2:#00ca70;
+      --green-dark:#063d2b;
     }
 
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    html, body {
-      min-height: 100%;
-    }
-
+    * { box-sizing:border-box; margin:0; padding:0; }
+    html { background:var(--bg); }
     body {
-      min-height: 100vh;
-      background: var(--bg);
-      color: var(--text);
-      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-      -webkit-font-smoothing: antialiased;
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 50% -5%, rgba(0,238,133,.12), transparent 27%),
+        linear-gradient(#0b0e0d, #080a09 70%);
+      color:var(--text);
+      font-family:Arial, Helvetica, sans-serif;
+      -webkit-font-smoothing:antialiased;
+      padding-bottom:104px;
+    }
+    button, a { font:inherit; }
+    a { color:inherit; text-decoration:none; }
+
+    .site {
+      width:100%;
+      max-width:390px;
+      margin:0 auto;
+      position:relative;
+      overflow:hidden;
     }
 
-    a { color: inherit; text-decoration: none; }
-    button { font-family: inherit; }
+    .notif-wrap {
+      position:sticky;
+      top:0;
+      z-index:80;
+      height:50px;
+      background:#151615;
+      border-top:8px solid #082b20;
+      border-bottom:1px solid #194a39;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:0 10px;
+      text-align:center;
+    }
+    .notification {
+      font-size:12.5px;
+      font-weight:700;
+      line-height:1.2;
+      opacity:1;
+      transform:translateY(0);
+      transition:opacity .2s ease, transform .2s ease;
+    }
+    .notification.changing {
+      opacity:0;
+      transform:translateY(-4px);
+    }
+    .country {
+      color:#bebebe;
+      font-size:8px;
+      margin-right:5px;
+      vertical-align:middle;
+      font-weight:700;
+    }
+    .amount { color:#23e889; }
 
-    .glow-text {
-      text-shadow: 0 0 22px rgba(34, 197, 94, 0.35), 0 0 4px rgba(34, 197, 94, 0.15);
+    main { padding:14px 14px 18px; }
+
+    .hero-card,
+    .offer-card {
+      background:linear-gradient(180deg,#171918,#121413);
+      border:1px solid var(--line);
+      border-radius:18px;
+      box-shadow:0 18px 40px rgba(0,0,0,.34);
     }
 
-    /* ---------- Shared: page wrapper ---------- */
-    .page {
-      width: 100%;
-      max-width: 480px;
-      margin: 0 auto;
-      min-height: 100vh;
-      position: relative;
+    .hero-card {
+      text-align:center;
+      padding:29px 20px 22px;
     }
 
-    /* =========================================================
-       LANDING PAGE
-    ========================================================= */
-    #landing {
-      display: block;
-      padding: 20px 18px 110px;
+    .app-logo {
+      width:86px;
+      height:86px;
+      border-radius:18px;
+      margin:0 auto 17px;
+      position:relative;
+      display:grid;
+      place-items:center;
+      box-shadow:0 0 34px rgba(0,237,133,.26);
     }
 
-    .lp-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 20px;
+    .app-logo::before {
+      content:"";
+      position:absolute;
+      width:190px;
+      height:110px;
+      left:50%;
+      top:-66px;
+      transform:translateX(-50%);
+      background:radial-gradient(ellipse at center, rgba(0,237,133,.38) 0%, rgba(0,237,133,.18) 38%, rgba(0,237,133,.05) 62%, rgba(0,237,133,0) 80%);
+      filter:blur(10px);
+      pointer-events:none;
+      z-index:0;
     }
 
-    .brand {
-      display: flex;
-      align-items: center;
-      gap: 8px;
+    .app-logo img {
+      width:86px;
+      height:86px;
+      border-radius:18px;
+      object-fit:cover;
+      position:relative;
+      z-index:1;
+      border:1px solid rgba(255,255,255,.15);
+      box-shadow:0 0 22px rgba(0,237,133,.22);
     }
 
-    .brand-logo {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
+    .store-pill {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:6px;
+      border:1px solid #007a4b;
+      border-radius:999px;
+      padding:6px 12px;
+      margin-bottom:13px;
+      color:#e8fff5;
+      font-size:12px;
+      background:rgba(0,80,50,.14);
+    }
+    .stars { color:var(--green); letter-spacing:-1px; font-weight:900; }
+    .store-pill b { color:var(--green); }
+    .dotsep { color:#76817b; }
+
+    h1 {
+      font-size:30px;
+      line-height:1.12;
+      letter-spacing:-.8px;
+      margin-bottom:13px;
+    }
+    h1 span { color:var(--green); display:block; }
+
+    .lead {
+      max-width:300px;
+      margin:0 auto 18px;
+      font-size:14.5px;
+      line-height:1.5;
+      color:#b8bcc1;
     }
 
-    .brand-name {
-      font-size: 17px;
-      font-weight: 800;
-      letter-spacing: -0.3px;
+    .live-pill {
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      border:1px solid #17613f;
+      border-radius:999px;
+      padding:7px 11px;
+      color:#dffff0;
+      font-size:12.5px;
+      font-weight:700;
+      background:#10251c;
+    }
+    .pulse {
+      width:7px; height:7px; border-radius:50%;
+      background:var(--green);
+      box-shadow:0 0 10px var(--green);
+      animation:pulse 1.3s infinite;
+    }
+    @keyframes pulse {
+      0%,100% { opacity:.55; transform:scale(.85); }
+      50% { opacity:1; transform:scale(1.15); }
     }
 
-    .timer-pill {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12px;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 6px 12px;
-      white-space: nowrap;
+    .offer-card {
+      margin-top:14px;
+      padding:18px 16px 21px;
+    }
+    .game-head {
+      display:flex;
+      align-items:flex-start;
+      gap:8px;
+      padding-bottom:18px;
+      border-bottom:1px solid #2d302f;
+    }
+    .game-icon {
+      width:62px; height:62px;
+      border-radius:14px;
+      object-fit:cover;
+      flex:0 0 auto;
+    }
+    .game-meta { padding-top:4px; }
+    .game-meta h2 {
+      font-size:17.5px;
+      margin-bottom:5px;
+      letter-spacing:-.5px;
+    }
+    .rating-line {
+      font-size:10.5px;
+      color:#c5c8c7;
+      margin-bottom:6px;
+    }
+    .rate {
+      font-size:10px;
+      font-weight:800;
+      color:var(--green);
     }
 
-    .timer-pill svg { flex-shrink: 0; }
-    .timer-pill span { color: var(--text); font-weight: 700; }
-
-    .paidout-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      margin: 0 auto 18px;
-      font-size: 12px;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 7px 14px;
-      width: fit-content;
+    .how {
+      margin-top:20px;
+      color:#8c9590;
+      letter-spacing:1.1px;
+      font-size:10px;
+      font-weight:800;
+    }
+    .steps { margin-top:13px; display:grid; gap:8px; }
+    .step {
+      display:flex;
+      align-items:center;
+      gap:7px;
+      font-size:12px;
+      font-weight:700;
+      line-height:1.3;
+    }
+    .num {
+      width:24px; height:24px;
+      border-radius:7px;
+      background:#073c2a;
+      border:1px solid #0c7650;
+      color:var(--green);
+      display:grid;
+      place-items:center;
+      flex:0 0 auto;
+      font-size:11px;
     }
 
-    .paidout-pill .check {
-      color: var(--green-light);
-      font-weight: 800;
+    .stats {
+      margin-top:14px;
+      background:#111216;
+      border:1px solid #282d34;
+      border-radius:14px;
+      padding:16px 8px;
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      text-align:center;
+    }
+    .stat + .stat { border-left:1px solid #2b2f34; }
+    .stat b {
+      display:block;
+      font-size:16.5px;
+      margin-bottom:5px;
+      white-space:nowrap;
+    }
+    .stat span {
+      display:block;
+      font-size:8.5px;
+      color:#87909e;
+      letter-spacing:.5px;
     }
 
-    .hero {
-      text-align: center;
-      margin-bottom: 20px;
+    .legal {
+      padding:19px 11px 10px;
+      text-align:center;
+      color:#7f8783;
+      font-size:10.5px;
+      line-height:1.5;
+    }
+    .links {
+      text-align:center;
+      color:#808785;
+      font-size:10.5px;
+      padding:11px 0 1px;
+    }
+    .links i {
+      font-style:normal;
+      color:#3f4542;
+      padding:0 8px;
     }
 
-    .hero-title {
-      font-size: 27px;
-      font-weight: 800;
-      letter-spacing: -0.6px;
-      line-height: 1.25;
-      margin-bottom: 10px;
+    .sticky {
+      position:fixed;
+      left:0; right:0; bottom:0;
+      z-index:90;
+      background:rgba(11,13,14,.97);
+      border-top:1px solid #272b2f;
+      padding:8px 13px calc(10px + env(safe-area-inset-bottom));
+      box-shadow:0 -12px 32px rgba(0,0,0,.5);
+    }
+    .sticky-inner {
+      max-width:364px;
+      margin:0 auto;
+    }
+    .available {
+      text-align:center;
+      color:#b2b6ba;
+      font-size:10.5px;
+      margin-bottom:8px;
+    }
+    .available .mini-dot { color:var(--green); font-size:14px; vertical-align:-1px; margin-right:5px; }
+    .buttons {
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+    }
+    .store-btn {
+      height:50px;
+      border-radius:12px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:7px;
+      cursor:pointer;
+      border:1px solid #3a3f47;
+      background:#16171d;
+      color:#fff;
+    }
+    .store-btn.google {
+      border-color:#00db79;
+      background:linear-gradient(135deg,#00f08b,#00d477);
+      color:#00170d;
+      box-shadow:0 0 20px rgba(0,237,133,.25);
+    }
+    .store-btn svg { width:20px; height:23px; flex:0 0 auto; }
+    .btn-text {
+      text-align:left;
+      font-size:8px;
+      line-height:1.0;
+    }
+    .btn-text strong {
+      display:block;
+      font-size:13.5px;
+      margin-top:2px;
+      line-height:1;
     }
 
-    .hero-title .text-green { color: var(--green-light); }
-
-    .hero-sub {
-      font-size: 14px;
-      color: var(--text-dim);
-      line-height: 1.5;
-      max-width: 360px;
-      margin: 0 auto;
+    @media (max-width:420px) {
+      .site { max-width:390px; }
+      main { padding:14px 14px 18px; }
+      .hero-card { padding:29px 20px 22px; }
+      .offer-card { padding:18px 16px 21px; }
     }
 
-    .badges-row {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 8px;
-      margin-bottom: 24px;
+    /* Intro screen shown before the landing page */
+    .intro-screen {
+      position:fixed;
+      inset:0;
+      z-index:200;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#000;
+      color:#fff;
+      padding:28px 26px calc(28px + env(safe-area-inset-bottom));
+      transition:opacity .35s ease, visibility .35s ease;
     }
-
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
-      font-size: 12.5px;
-      color: var(--text-dim);
-      border: 1px solid var(--border);
-      border-radius: 999px;
-      padding: 8px 14px;
+    .intro-screen.is-hidden {
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
     }
-
-    .section-label {
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 1px;
-      color: var(--text-dimmer);
-      margin-bottom: 12px;
+    .intro-inner {
+      width:100%;
+      max-width:390px;
+      text-align:center;
+      transform:translateY(-8px);
     }
-
-    .game-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 12px;
-      width: 100%;
-      color: inherit;
-      font: inherit;
-      text-align: left;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
-      cursor: pointer;
-      box-shadow: 0 0 16px rgba(34, 197, 94, 0.06);
-      transition: border-color 0.15s ease, transform 0.15s ease, background 0.15s ease, box-shadow 0.15s ease;
+    .intro-title {
+      font-size:41px;
+      line-height:1.08;
+      letter-spacing:-1.4px;
+      font-weight:800;
+      margin-bottom:34px;
     }
-
-    .game-card:hover {
-      border-color: rgba(34, 197, 94, 0.4);
-      background: var(--surface-2);
-      transform: translateY(-1px);
+    .intro-copy {
+      max-width:320px;
+      margin:0 auto;
+      color:#b7b7b7;
+      font-size:19px;
+      line-height:1.5;
     }
-
-    .game-card.popular {
-      background: rgba(34, 197, 94, 0.08);
-      border-color: rgba(34, 197, 94, 0.4);
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.2), 0 0 24px rgba(34, 197, 94, 0.16);
+    .intro-arrows {
+      margin:47px auto 36px;
+      width:46px;
+      height:74px;
+      position:relative;
+      filter:drop-shadow(0 0 9px rgba(42,116,150,.58));
+      animation:arrowFloat 1.35s ease-in-out infinite;
     }
-
-    .game-card.popular:hover {
-      border-color: rgba(34, 197, 94, 0.6);
-      background: rgba(34, 197, 94, 0.12);
+    .intro-arrows span {
+      position:absolute;
+      left:50%;
+      width:23px;
+      height:23px;
+      border-right:5px solid #245f78;
+      border-bottom:5px solid #245f78;
+      transform:translateX(-50%) rotate(45deg);
+      opacity:.95;
     }
-
-    .game-card.popular .game-title {
-      color: var(--green-light);
+    .intro-arrows span:nth-child(1){ top:0; }
+    .intro-arrows span:nth-child(2){ top:23px; }
+    .intro-arrows span:nth-child(3){ top:46px; }
+    @keyframes arrowFloat {
+      0%,100% { transform:translateY(-4px); filter:drop-shadow(0 0 7px rgba(42,116,150,.42)); }
+      50% { transform:translateY(7px); filter:drop-shadow(0 0 15px rgba(42,116,150,.85)); }
     }
-
-    .game-card-title-row {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 4px;
+    .intro-button {
+      width:100%;
+      height:74px;
+      border:0;
+      border-radius:10px;
+      background:#df3b35;
+      color:#fff;
+      font-size:20px;
+      font-weight:800;
+      letter-spacing:2px;
+      cursor:pointer;
+      box-shadow:0 12px 24px rgba(223,59,53,.28);
+      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
     }
-
-    .game-title {
-      font-size: 15.5px;
-      font-weight: 700;
+    .intro-button:active {
+      transform:scale(.985);
+      background:#d73731;
+      box-shadow:0 7px 16px rgba(223,59,53,.24);
     }
+    body.intro-open { overflow:hidden; }
 
-    .popular-badge {
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.3px;
-      color: #1a0f00;
-      background: var(--orange);
-      border-radius: 5px;
-      padding: 3px 6px;
+    @media (max-width:420px) {
+      .intro-title { font-size:39px; }
+      .intro-copy { font-size:18px; }
+      .intro-button { height:72px; }
     }
-
-    .game-desc {
-      font-size: 13px;
-      color: var(--text-dim);
-    }
-
-    .game-card-cta {
-      flex-shrink: 0;
-      text-align: right;
-    }
-
-    .play-label {
-      display: flex;
-      align-items: center;
-      gap: 2px;
-      font-size: 14.5px;
-      font-weight: 800;
-      color: var(--green-light);
-      justify-content: flex-end;
-    }
-
-    .rating {
-      display: block;
-      font-size: 12px;
-      color: var(--text-dimmer);
-      margin-top: 3px;
-    }
-
-    .rating .star { color: var(--green-light); }
-
-    .important-box,
-    .cashout-box {
-      display: flex;
-      align-items: flex-start;
-      gap: 12px;
-      background: rgba(34, 197, 94, 0.06);
-      border: 1px solid rgba(34, 197, 94, 0.25);
-      border-radius: 16px;
-      padding: 16px;
-      margin-bottom: 12px;
-    }
-
-    .important-box .box-icon,
-    .cashout-box .box-icon {
-      flex-shrink: 0;
-      font-size: 18px;
-    }
-
-    .box-title {
-      font-size: 14px;
-      font-weight: 700;
-      margin-bottom: 3px;
-    }
-
-    .box-text {
-      font-size: 13px;
-      color: var(--text-dim);
-      line-height: 1.45;
-    }
-
-    .steps-grid {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      margin-bottom: 24px;
-    }
-
-    .step-card {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: 14px;
-      padding: 14px 10px;
-      text-align: center;
-    }
-
-    .step-num {
-      width: 22px;
-      height: 22px;
-      line-height: 22px;
-      border-radius: 50%;
-      background: var(--surface-2);
-      color: var(--text-dim);
-      font-size: 11px;
-      font-weight: 700;
-      margin: 0 auto 8px;
-    }
-
-    .step-icon { font-size: 18px; margin-bottom: 8px; }
-
-    .step-title {
-      font-size: 12.5px;
-      font-weight: 700;
-      margin-bottom: 4px;
-    }
-
-    .step-desc {
-      font-size: 11px;
-      color: var(--text-dimmer);
-      line-height: 1.35;
-    }
-
-    .trust-rating {
-      text-align: center;
-      margin-bottom: 24px;
-    }
-
-    .trust-rating .stars {
-      color: var(--green-light);
-      font-size: 18px;
-      letter-spacing: 2px;
-    }
-
-    .trust-rating p {
-      font-size: 12.5px;
-      color: var(--text-dim);
-      margin-top: 6px;
-    }
-
-    .footer-links {
-      text-align: center;
-      font-size: 12px;
-      color: var(--text-dimmer);
-      margin-bottom: 4px;
-    }
-
-    .footer-links a { text-decoration: underline; text-underline-offset: 2px; }
-    .footer-links a:hover { color: var(--text-dim); }
-
-    .footer-copy {
-      text-align: center;
-      font-size: 11px;
-      color: var(--text-dimmer);
-      opacity: 0.7;
-      margin-bottom: 18px;
-    }
-
-    /* ---------- Age modal ---------- */
-    .modal-overlay {
-      position: fixed;
-      inset: 0;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      padding: 20px;
-      background: rgba(4, 5, 6, 0.7);
-      z-index: 100;
-    }
-
-    .modal-overlay.active {
-      display: flex;
-    }
-
-    .modal-box {
-      width: 100%;
-      max-width: 360px;
-      position: relative;
-      text-align: center;
-      background: linear-gradient(145deg, var(--surface), var(--surface-2));
-      border: 1px solid rgba(34, 197, 94, 0.3);
-      border-radius: 20px;
-      padding: 30px 24px 24px;
-      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.5), 0 0 36px rgba(34, 197, 94, 0.18);
-    }
-
-    .modal-close {
-      position: absolute;
-      top: 12px;
-      right: 12px;
-      width: 28px;
-      height: 28px;
-      border-radius: 50%;
-      border: 1px solid var(--border);
-      background: transparent;
-      color: var(--text-dim);
-      font-size: 15px;
-      line-height: 1;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.15s ease, color 0.15s ease;
-    }
-
-    .modal-close:hover {
-      background: var(--surface-2);
-      color: var(--text);
-    }
-
-    .modal-icon {
-      width: 46px;
-      height: 46px;
-      margin: 0 auto 16px;
-      border-radius: 50%;
-      background: rgba(34, 197, 94, 0.12);
-      color: var(--green-light);
-      font-size: 20px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      box-shadow: 0 0 22px rgba(34, 197, 94, 0.22);
-    }
-
-    .modal-text {
-      font-size: 15px;
-      font-weight: 600;
-      line-height: 1.5;
-      margin-bottom: 22px;
-    }
-
-    .modal-cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      border: 0;
-      padding: 15px 20px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--green-light), var(--green));
-      color: #06120a;
-      font-size: 15px;
-      font-weight: 800;
-      cursor: pointer;
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.4), 0 10px 26px var(--green-glow), 0 0 30px rgba(34, 197, 94, 0.2);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .modal-cta:hover {
-      transform: translateY(-2px);
-    }
-
-    .modal-cta:active {
-      transform: scale(0.98);
-    }
-
-    /* ---------- Sticky CTA ---------- */
-    .sticky-bar {
-      position: fixed;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      display: flex;
-      justify-content: center;
-      padding: 14px 18px calc(14px + env(safe-area-inset-bottom));
-      background: linear-gradient(180deg, rgba(10, 11, 13, 0) 0%, rgba(10, 11, 13, 0.9) 30%, var(--bg) 65%);
-      z-index: 50;
-    }
-
-    .sticky-cta {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      width: 100%;
-      max-width: 444px;
-      border: 0;
-      cursor: pointer;
-      padding: 17px 20px;
-      border-radius: 14px;
-      background: linear-gradient(135deg, var(--green-light), var(--green));
-      color: #06120a;
-      font-size: 16px;
-      font-weight: 800;
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.45), 0 14px 34px var(--green-glow), 0 0 48px rgba(34, 197, 94, 0.3);
-      transition: transform 0.15s ease, box-shadow 0.15s ease;
-    }
-
-    .sticky-cta:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 0 0 1px rgba(34, 197, 94, 0.55), 0 18px 40px var(--green-glow), 0 0 56px rgba(34, 197, 94, 0.36);
-    }
-
-    .sticky-cta:active { transform: scale(0.98); }
   </style>
-  <!-- TikTok Pixel -->
-  <script>
-  !function (w, d, t) {
-    w.TiktokAnalyticsObject=t;
-    var ttq=w[t]=w[t]||[];
-    ttq.methods=["page","track","identify","instances","debug","on","off","once","ready","alias","group","enableCookie","disableCookie"];
-    ttq.setAndDefer=function(t,e){t[e]=function(){t.push([e].concat(Array.prototype.slice.call(arguments,0)))}};
-    for(var i=0;i<ttq.methods.length;i++)ttq.setAndDefer(ttq,ttq.methods[i]);
-    ttq.load=function(e,n){
-      var r="https://analytics.tiktok.com/i18n/pixel/events.js";
-      ttq._i=ttq._i||{};
-      ttq._i[e]=[];
-      ttq._i[e]._u=r;
-      ttq._t=ttq._t||{};
-      ttq._t[e]=+new Date;
-      ttq._o=ttq._o||{};
-      ttq._o[e]=n||{};
-      var a=document.createElement("script");
-      a.type="text/javascript";
-      a.async=!0;
-      a.src=r+"?sdkid="+e+"&lib="+t;
-      var s=document.getElementsByTagName("script")[0];
-      s.parentNode.insertBefore(a,s);
-    };
-    ttq.load("D9MB7MRC77UAJMD0LFSG");
-    ttq.page();
-  }(window, document, "ttq");
-  </script>
-
 </head>
 
-<body>
-
-  <main class="page" id="landing">
-    <header class="lp-header">
-      <div class="brand">
-        <img src="fc logo.jpg" alt="FreeCash" class="brand-logo" />
-        <span class="brand-name">FreeCash</span>
+<body class="intro-open">
+  <section class="intro-screen" id="intro-screen" aria-label="Otwórz przeglądarkę">
+    <div class="intro-inner">
+      <h1 class="intro-title">Otwórz przeglądarkę</h1>
+      <p class="intro-copy">Otwórz tę stronę w swojej przeglądarce,<br>aby kontynuować.</p>
+      <div class="intro-arrows" aria-hidden="true">
+        <span></span><span></span><span></span>
       </div>
-      <div class="timer-pill">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <circle cx="12" cy="12" r="9"></circle>
-          <path d="M12 7v5l3 3"></path>
-        </svg>
-        Bonusen går ut om <span id="countdown">15:00</span>
-      </div>
-    </header>
+      <button type="button" class="intro-button" id="intro-button">OTWÓRZ TERAZ</button>
+    </div>
+  </section>
 
-    <div style="display:flex; justify-content:center;">
-      <div class="paidout-pill"><span class="check">&#10003;</span> Över 5 miljoner USD utbetalt</div>
+  <div class="site">
+    <div class="notif-wrap" aria-live="polite">
+      <div class="notification" id="notification"></div>
     </div>
 
-    <div class="hero">
-      <h1 class="hero-title glow-text">Välj ditt första spel och <span class="text-green">hämta din välkomstbonus</span></h1>
-      <p class="hero-sub">Registrera dig gratis, starta ett valfritt spel och få din välkomstbonus efter ditt första spel.</p>
-    </div>
-
-    <div class="badges-row">
-      <span class="badge">&#9889; Snabba utbetalningar</span>
-      <span class="badge">&#127918; 100+ spel</span>
-      <span class="badge">&#128276; Dagliga bonusar</span>
-      <span class="badge">&#9989; Säkert och pålitligt</span>
-    </div>
-
-    <div class="section-label">VÄLJ DITT FÖRSTA SPEL</div>
-
-    <button type="button" class="game-card popular affiliate-link">
-      <div>
-        <div class="game-card-title-row">
-          <span class="game-title">Pusselspel</span>
-          <span class="popular-badge">POPULÄRT</span>
+    <main>
+      <section class="hero-card">
+        <div class="app-logo" aria-label="Freecash">
+          <img src="fc logo.png" alt="Freecash logo" />
         </div>
-        <p class="game-desc">Spela och nå nivå 10</p>
-      </div>
-      <div class="game-card-cta">
-        <span class="play-label">Spela
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 6l6 6-6 6"></path></svg>
-        </span>
-        <span class="rating"><span class="star">&#9733;</span> 5.0</span>
-      </div>
-    </button>
 
-    <button type="button" class="game-card affiliate-link">
-      <div>
-        <div class="game-card-title-row">
-          <span class="game-title">Actionspel</span>
+        <div class="store-pill">
+          <span class="stars">★★★★★</span>
+          <b>4.7</b>
+          <span class="dotsep">·</span>
+          <b>App Store</b>
+          <span>(50 tys.+ opinii)</span>
         </div>
-        <p class="game-desc">Spela och nå nivån</p>
-      </div>
-      <div class="game-card-cta">
-        <span class="play-label">Spela
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 6l6 6-6 6"></path></svg>
-        </span>
-        <span class="rating"><span class="star">&#9733;</span> 5.0</span>
-      </div>
-    </button>
 
-    <button type="button" class="game-card affiliate-link">
-      <div>
-        <div class="game-card-title-row">
-          <span class="game-title">100+ fler spel</span>
+        <h1>Zarabiaj <span>na graniu</span></h1>
+        <p class="lead">Zarabiaj prawdziwe pieniądze grając w gry, wykonując zadania i testując aplikacje. Wypłacaj w dowolnym momencie — bez minimum.</p>
+
+        <div class="live-pill">
+          <span class="pulse"></span>
+          <span><strong>1,886</strong>&nbsp; osoby zarabiają w tej chwili</span>
         </div>
-        <p class="game-desc">Tillgängliga efter registrering</p>
-      </div>
-      <div class="game-card-cta">
-        <span class="play-label">Fler
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M9 6l6 6-6 6"></path></svg>
-        </span>
-        <span class="rating"><span class="star">&#9733;</span> 4.9</span>
-      </div>
-    </button>
+      </section>
 
-    <div class="important-box">
-      <div class="box-icon">&#128161;</div>
-      <div>
-        <p class="box-title">Viktigt</p>
-        <p class="box-text">När FreeCash frågar &ldquo;Har du spelat tidigare?&rdquo;, välj alltid NEJ &mdash; annars förlorar du din bonus.</p>
+      <section class="offer-card">
+        <div class="game-head">
+          <img class="game-icon" src="gardenscapes.png">
+          <div class="game-meta">
+            <h2>Gardenscapes</h2>
+            <div class="rating-line"><span class="stars">★★★★★</span> 4.8 · Najwyżej oceniane</div>
+            <div class="rate">Stawka: 105 zł/h</div>
+          </div>
+        </div>
+
+        <div class="how">JAK TO DZIAŁA</div>
+        <div class="steps">
+          <div class="step"><span class="num">1</span><span>Zarejestruj się na Freecash (wybierz 21+)</span></div>
+          <div class="step"><span class="num">2</span><span>Graj w gry i wykonuj zadania</span></div>
+          <div class="step"><span class="num">3</span><span>Wypłacaj przez PayPal, Visa lub Krypto</span></div>
+        </div>
+      </section>
+
+      <section class="stats">
+        <div class="stat"><b>200 mln zł+</b><span>WYPŁACONO</span></div>
+        <div class="stat"><b>4.7★</b><span>OCENA APP</span></div>
+        <div class="stat"><b>0 zł</b><span>ZA DOŁĄCZENIE</span></div>
+      </section>
+
+      <p class="legal">Dostępność, nagrody i kwalifikowalność mogą się różnić w zależności od użytkownika, lokalizacji i wykonanego zadania. Wyniki nie są gwarantowane i zależą od indywidualnego zaangażowania. Zarobki różnią się w zależności od oferty.</p>
+
+      <div class="links">
+        <a href="#">Polityka Prywatności</a><i>·</i><a href="#">Regulamin</a>
       </div>
-    </div>
-
-    <div class="cashout-box">
-      <div class="box-icon">&#128184;</div>
-      <div>
-        <p class="box-title">Ta ut pengar via PayPal, krypto eller presentkort</p>
-        <p class="box-text">Registrera dig gratis och kom igång</p>
-      </div>
-    </div>
-
-    <div class="section-label">SÅ FUNGERAR DET</div>
-
-    <div class="steps-grid">
-      <div class="step-card">
-        <div class="step-num">1</div>
-        <div class="step-icon">&#128100;</div>
-        <p class="step-title">Registrera dig gratis</p>
-        <p class="step-desc">10 sekunder med Google. Inget kort.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">2</div>
-        <div class="step-icon">&#127918;</div>
-        <p class="step-title">Installera ett spel</p>
-        <p class="step-desc">Välj ett spel och spela första rundan.</p>
-      </div>
-      <div class="step-card">
-        <div class="step-num">3</div>
-        <div class="step-icon">&#127942;</div>
-        <p class="step-title">Hämta bonusen</p>
-        <p class="step-desc">Sätts in efter ditt första spel.</p>
-      </div>
-    </div>
-
-    <div class="trust-rating">
-      <div class="stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
-      <p>4,7/5 på Trustpilot &middot; 270 000+ omdömen</p>
-    </div>
-
-    <div class="footer-links">
-      <a href="#">Integritetspolicy</a> &middot; <a href="#">Användarvillkor</a> &middot; <a href="#">Företagsinformation</a>
-    </div>
-    <p class="footer-copy">&copy; 2026 Alla rättigheter förbehållna.</p>
-  </main>
-
-  <div class="sticky-bar" id="sticky-bar">
-    <button type="button" class="sticky-cta affiliate-link" id="sticky-cta">
-      Spela ett spel och kom igång
-      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-    </button>
+    </main>
   </div>
 
-  <div class="modal-overlay" id="age-modal">
-    <div class="modal-box">
-      <button class="modal-close" id="modal-close" type="button" aria-label="Stäng">&times;</button>
-      <div class="modal-icon">&#128274;</div>
-      <p class="modal-text">Ange en ålder på 21+ vid registreringen för att låsa upp alla erbjudanden.</p>
-      <button class="modal-cta" id="modal-continue" type="button">
-        Fortsätt
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"></path></svg>
-      </button>
+  <div class="sticky">
+    <div class="sticky-inner">
+      <div class="available"><span class="mini-dot">•</span>Dostępne teraz na iOS i Android</div>
+      <div class="buttons">
+        <button type="button" class="store-btn affiliate-link" aria-label="Pobierz w App Store">
+          <svg viewBox="0 0 24 29" fill="currentColor" aria-hidden="true">
+            <path d="M19.7 15.4c0-4 3.3-5.9 3.5-6-1.9-2.8-4.9-3.2-6-3.2-2.5-.3-5 1.5-6.3 1.5-1.3 0-3.4-1.5-5.6-1.4-2.9 0-5.6 1.7-7.1 4.3-3.1 5.3-.8 13.1 2.2 17.4 1.5 2.1 3.2 4.5 5.5 4.4 2.2-.1 3-1.4 5.7-1.4 2.6 0 3.4 1.4 5.7 1.3 2.4 0 3.9-2.1 5.3-4.3 1.7-2.4 2.4-4.8 2.4-4.9-.1 0-5.3-2-5.3-7.7z" transform="scale(.72) translate(2 -1)"/>
+            <path d="M15.6 3.6c1.2-1.5 2-3.5 1.8-5.5-1.8.1-4 1.2-5.3 2.7-1.1 1.3-2.1 3.4-1.8 5.3 2 .2 4.1-1 5.3-2.5z" transform="scale(.72) translate(2 2)"/>
+          </svg>
+          <span class="btn-text">Pobierz w<strong>App Store</strong></span>
+        </button>
+
+        <button type="button" class="store-btn google affiliate-link" aria-label="Pobierz z Google Play">
+          <svg viewBox="0 0 32 36" aria-hidden="true">
+            <path fill="#00a173" d="M2 2l18 16L2 34z"/>
+            <path fill="#003d2b" d="M20 18l5-4 5 3c1 .7 1 1.8 0 2.5l-5 3.1z"/>
+            <path fill="#004f39" d="M2 2l23 12-5 4z"/>
+            <path fill="#007c58" d="M2 34l23-11.4-5-4.6z"/>
+          </svg>
+          <span class="btn-text">Pobierz z<strong>Google Play</strong></span>
+        </button>
+      </div>
     </div>
   </div>
 
   <script>
-    // ---------------------------------------------------------
-    // Configuration
-    // ---------------------------------------------------------
-    const AFFILIATE_URL = "https://giftclick.org/aff_c?tl_id=dd5764b7";
+
+    const introScreen = document.getElementById("intro-screen");
+    const introButton = document.getElementById("intro-button");
+
+    introButton.addEventListener("click", function () {
+      introScreen.classList.add("is-hidden");
+      document.body.classList.remove("intro-open");
+      window.scrollTo({ top: 0, behavior: "auto" });
+    });
+
+    const AFFILIATE_URL = "https://giftclick.org/aff_c?tl_id=6f06a7f1";
 
     const pageParams = new URLSearchParams(window.location.search);
     const source = pageParams.get("source");
 
     function appendSource(baseUrl) {
       const url = new URL(baseUrl);
-
-      if (source) {
-        url.searchParams.set("source", source);
-      }
-
+      if (source) url.searchParams.set("source", source);
       return url.toString();
     }
 
     const finalAffiliateUrl = appendSource(AFFILIATE_URL);
 
-    // ---------------------------------------------------------
-    // Age-confirmation popup shown by every landing-page CTA
-    // ---------------------------------------------------------
-    const ageModal = document.getElementById("age-modal");
-
-    function openAgeModal() {
-      ageModal.classList.add("active");
-    }
-
-    function closeAgeModal() {
-      ageModal.classList.remove("active");
-    }
-
     document.querySelectorAll(".affiliate-link").forEach(function (cta) {
-      cta.addEventListener("click", openAgeModal);
-    });
-
-    document.getElementById("modal-close").addEventListener("click", closeAgeModal);
-
-    ageModal.addEventListener("click", function (event) {
-      if (event.target === ageModal) {
-        closeAgeModal();
-      }
-    });
-
-    document.addEventListener("keydown", function (event) {
-      if (event.key === "Escape" && ageModal.classList.contains("active")) {
-        closeAgeModal();
-      }
-    });
-
-    document.getElementById("modal-continue").addEventListener("click", function () {
-      if (typeof ttq !== "undefined") {
-        ttq.track("ClickButton", {
-          button_name: "modal_continue",
-          destination: finalAffiliateUrl
-        });
-      }
-
-      setTimeout(function () {
+      cta.addEventListener("click", function () {
+        if (window.ttq && typeof window.ttq.track === "function") {
+          window.ttq.track("ClickButton");
+        }
         window.location.assign(finalAffiliateUrl);
-      }, 150);
+      });
     });
 
-    // ---------------------------------------------------------
-    // Countdown timer
-    // ---------------------------------------------------------
-    function startCountdown(elId, startSeconds) {
-      let remaining = startSeconds;
-      const el = document.getElementById(elId);
+    const notifications = [
+      ["Carlos T.", "39.80 zł"],
+      ["Anna M.", "53.45 zł"],
+      ["Jakub R.", "80.00 zł"],
+      ["Natalia G.", "66.40 zł"],
+      ["Kasia F.", "40.20 zł"],
+      ["Marek W.", "54.70 zł"],
+      ["Szymon R.", "42.35 zł"],
+      ["Tomek B.", "78.50 zł"],
+      ["Jan P.", "39.15 zł"],
+      ["Aleksandra K.", "55.90 zł"],
+      ["Dawid L.", "41.60 zł"],
+      ["Maja S.", "67.25 zł"]
+    ];
 
-      function tick() {
-        const minutes = Math.floor(remaining / 60).toString().padStart(2, "0");
-        const seconds = (remaining % 60).toString().padStart(2, "0");
+    const notificationEl = document.getElementById("notification");
+    let notificationIndex = 0;
 
-        el.textContent = minutes + ":" + seconds;
-        remaining = remaining <= 0 ? startSeconds : remaining - 1;
-      }
-
-      tick();
-      setInterval(tick, 1000);
+    function renderNotification() {
+      const item = notifications[notificationIndex];
+      notificationEl.innerHTML =
+        '<span class="country">PL</span>' +
+        item[0] + ' właśnie zarobił <span class="amount">' +
+        item[1] + '</span> — wypłacone natychmiast';
+      notificationIndex = (notificationIndex + 1) % notifications.length;
     }
 
-    startCountdown("countdown", 15 * 60);
+    renderNotification();
+
+    setInterval(function () {
+      notificationEl.classList.add("changing");
+      setTimeout(function () {
+        renderNotification();
+        notificationEl.classList.remove("changing");
+      }, 200);
+    }, 2500);
   </script>
 </body>
 </html>
