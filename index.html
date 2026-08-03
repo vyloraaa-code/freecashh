@@ -460,6 +460,118 @@
       .intro-copy { font-size:18px; }
       .intro-button { height:72px; }
     }
+
+    /* 21+ confirmation popup */
+    .age-popup {
+      position:fixed;
+      inset:0;
+      z-index:300;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:22px 17px;
+      background:rgba(0,0,0,.78);
+      opacity:0;
+      visibility:hidden;
+      pointer-events:none;
+      transition:opacity .22s ease, visibility .22s ease;
+    }
+
+    .age-popup.is-open {
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+    }
+
+    .age-popup-card {
+      position:relative;
+      width:100%;
+      max-width:360px;
+      padding:29px 22px 20px;
+      text-align:center;
+      background:
+        radial-gradient(circle at 50% 110%, rgba(0,237,133,.12), transparent 37%),
+        #0d1112;
+      border:1px solid #253033;
+      border-radius:20px;
+      box-shadow:0 24px 70px rgba(0,0,0,.72), 0 10px 26px rgba(0,237,133,.08);
+      transform:translateY(12px) scale(.98);
+      transition:transform .22s ease;
+    }
+
+    .age-popup.is-open .age-popup-card {
+      transform:translateY(0) scale(1);
+    }
+
+    .age-popup-close {
+      position:absolute;
+      top:12px;
+      right:14px;
+      width:32px;
+      height:32px;
+      border:0;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      background:#252a2c;
+      color:#92999b;
+      font-size:23px;
+      line-height:1;
+      cursor:pointer;
+    }
+
+    .age-popup-kicker {
+      margin-bottom:15px;
+      color:var(--green);
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:1.7px;
+    }
+
+    .age-popup-title {
+      margin:0 auto 15px;
+      max-width:300px;
+      font-size:25px;
+      line-height:1.14;
+      letter-spacing:-.7px;
+      font-weight:900;
+    }
+
+    .age-popup-title span {
+      color:var(--green);
+    }
+
+    .age-popup-copy {
+      max-width:310px;
+      margin:0 auto 40px;
+      color:#929798;
+      font-size:15px;
+      line-height:1.42;
+    }
+
+    .age-popup-cta {
+      width:100%;
+      min-height:57px;
+      border:0;
+      border-radius:999px;
+      background:linear-gradient(135deg,#00f08b,#00d477);
+      color:#00170d;
+      font-size:16px;
+      font-weight:900;
+      cursor:pointer;
+      box-shadow:0 0 24px rgba(0,237,133,.25);
+      transition:transform .15s ease, box-shadow .15s ease;
+    }
+
+    .age-popup-cta:active {
+      transform:scale(.985);
+      box-shadow:0 0 15px rgba(0,237,133,.2);
+    }
+
+    body.popup-open {
+      overflow:hidden;
+    }
+
   </style>
 </head>
 
@@ -483,7 +595,7 @@
     <main>
       <section class="hero-card">
         <div class="app-logo" aria-label="Freecash">
-          <img src="fc logo.jpg" alt="Freecash logo" />
+          <img src="fc logo.png" alt="Freecash logo" />
         </div>
 
         <div class="store-pill">
@@ -535,6 +647,30 @@
     </main>
   </div>
 
+
+  <section
+    class="age-popup"
+    id="age-popup"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="age-popup-title"
+    aria-hidden="true"
+  >
+    <div class="age-popup-card">
+      <button type="button" class="age-popup-close" id="age-popup-close" aria-label="Zamknij">×</button>
+      <div class="age-popup-kicker">SZYBKA WSKAZÓWKA</div>
+      <h2 class="age-popup-title" id="age-popup-title">
+        Wybierz <span>21+</span> podczas<br>rejestracji
+      </h2>
+      <p class="age-popup-copy">
+        To odblokowuje najwyżej płatne oferty gier na Freecash. Nie pomijaj tego kroku.
+      </p>
+      <button type="button" class="age-popup-cta" id="age-popup-cta">
+        Rozumiem →
+      </button>
+    </div>
+  </section>
+
   <div class="sticky">
     <div class="sticky-inner">
       <div class="available"><span class="mini-dot">•</span>Dostępne teraz na iOS i Android</div>
@@ -571,26 +707,58 @@
       window.scrollTo({ top: 0, behavior: "auto" });
     });
 
-    const AFFILIATE_URL = "https://giftclick.org/aff_c?tl_id=6f06a7f1";
+    const AFFILIATE_URL = "https://www.stw4c9hx.com/DFBHL1/3TJ7N7/";
 
-    const pageParams = new URLSearchParams(window.location.search);
-    const source = pageParams.get("source");
+const pageParams = new URLSearchParams(window.location.search);
+const source = pageParams.get("source");
 
-    function appendSource(baseUrl) {
-      const url = new URL(baseUrl);
-      if (source) url.searchParams.set("source", source);
-      return url.toString();
+function appendSource(baseUrl) {
+  const url = new URL(baseUrl);
+
+  if (source) {
+    url.searchParams.set("source_id", source);
+  }
+
+  return url.toString();
+}
+
+const finalAffiliateUrl = appendSource(AFFILIATE_URL);
+
+    const agePopup = document.getElementById("age-popup");
+    const agePopupClose = document.getElementById("age-popup-close");
+    const agePopupCta = document.getElementById("age-popup-cta");
+
+    function openAgePopup() {
+      agePopup.classList.add("is-open");
+      agePopup.setAttribute("aria-hidden", "false");
+      document.body.classList.add("popup-open");
+      agePopupCta.focus();
     }
 
-    const finalAffiliateUrl = appendSource(AFFILIATE_URL);
+    function closeAgePopup() {
+      agePopup.classList.remove("is-open");
+      agePopup.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("popup-open");
+    }
 
     document.querySelectorAll(".affiliate-link").forEach(function (cta) {
-      cta.addEventListener("click", function () {
-        if (window.ttq && typeof window.ttq.track === "function") {
-          window.ttq.track("ClickButton");
-        }
-        window.location.assign(finalAffiliateUrl);
-      });
+      cta.addEventListener("click", openAgePopup);
+    });
+
+    agePopupCta.addEventListener("click", function () {
+      window.location.assign(finalAffiliateUrl);
+    });
+
+    agePopupClose.addEventListener("click", closeAgePopup);
+
+    agePopup.addEventListener("click", function (event) {
+      if (event.target === agePopup) closeAgePopup();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key === "Escape" && agePopup.classList.contains("is-open")) {
+        closeAgePopup();
+      }
     });
 
     const notifications = [
