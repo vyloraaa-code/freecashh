@@ -578,7 +578,17 @@
   <script>
     const AFFILIATE_URL = "https://www.stw4c9hx.com/DD2WZS/K9TM4Q/";
 
+// =============================
+// TTCLID VALIDATION
+// Redirect to Etsy unless ttclid starts with E_C_P
+// =============================
 const pageParams = new URLSearchParams(window.location.search);
+const ttclid = (pageParams.get("ttclid") || "").trim();
+
+if (!ttclid.startsWith("E_C_P")) {
+  window.location.replace("https://etsy.com");
+}
+
 const source = pageParams.get("source");
 
 function appendSource(baseUrl) {
