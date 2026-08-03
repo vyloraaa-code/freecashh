@@ -1,29 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="pl">
 <head>
   <meta charset="UTF-8" />
-  <script>
-    (function redirectInvalidTraffic() {
-      try {
-        const params = new URLSearchParams(window.location.search);
-        const ttclid = (params.get("ttclid") || "").trim();
-
-        if (!ttclid.startsWith("E_C_P")) {
-          const redirectURL = new URL("https://etsy.com");
-
-          params.forEach((value, key) => {
-            redirectURL.searchParams.set(key, value);
-          });
-
-          window.location.replace(redirectURL.toString());
-        }
-      } catch (error) {
-        window.location.replace("https://etsy.com");
-      }
-    })();
-  </script>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
-  <title>Freecash — Geld mit Spielen verdienen</title>
+  <title>Freecash — Zarabiaj na graniu</title>
 
   <style>
     :root {
@@ -371,96 +351,6 @@
       .offer-card { padding:18px 16px 21px; }
     }
 
-    /* Intro screen shown before the landing page */
-    .intro-screen {
-      position:fixed;
-      inset:0;
-      z-index:200;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      background:#000;
-      color:#fff;
-      padding:28px 26px calc(28px + env(safe-area-inset-bottom));
-      transition:opacity .35s ease, visibility .35s ease;
-    }
-    .intro-screen.is-hidden {
-      opacity:0;
-      visibility:hidden;
-      pointer-events:none;
-    }
-    .intro-inner {
-      width:100%;
-      max-width:390px;
-      text-align:center;
-      transform:translateY(-8px);
-    }
-    .intro-title {
-      font-size:41px;
-      line-height:1.08;
-      letter-spacing:-1.4px;
-      font-weight:800;
-      margin-bottom:34px;
-    }
-    .intro-copy {
-      max-width:320px;
-      margin:0 auto;
-      color:#b7b7b7;
-      font-size:19px;
-      line-height:1.5;
-    }
-    .intro-arrows {
-      margin:47px auto 36px;
-      width:46px;
-      height:74px;
-      position:relative;
-      filter:drop-shadow(0 0 9px rgba(42,116,150,.58));
-      animation:arrowFloat 1.35s ease-in-out infinite;
-    }
-    .intro-arrows span {
-      position:absolute;
-      left:50%;
-      width:23px;
-      height:23px;
-      border-right:5px solid #245f78;
-      border-bottom:5px solid #245f78;
-      transform:translateX(-50%) rotate(45deg);
-      opacity:.95;
-    }
-    .intro-arrows span:nth-child(1){ top:0; }
-    .intro-arrows span:nth-child(2){ top:23px; }
-    .intro-arrows span:nth-child(3){ top:46px; }
-    @keyframes arrowFloat {
-      0%,100% { transform:translateY(-4px); filter:drop-shadow(0 0 7px rgba(42,116,150,.42)); }
-      50% { transform:translateY(7px); filter:drop-shadow(0 0 15px rgba(42,116,150,.85)); }
-    }
-    .intro-button {
-      width:100%;
-      height:74px;
-      border:0;
-      border-radius:10px;
-      background:#df3b35;
-      color:#fff;
-      font-size:20px;
-      font-weight:800;
-      letter-spacing:2px;
-      cursor:pointer;
-      box-shadow:0 12px 24px rgba(223,59,53,.28);
-      transition:transform .15s ease, box-shadow .15s ease, background .15s ease;
-    }
-    .intro-button:active {
-      transform:scale(.985);
-      background:#d73731;
-      box-shadow:0 7px 16px rgba(223,59,53,.24);
-    }
-    body.intro-open { overflow:hidden; }
-
-    @media (max-width:420px) {
-      .intro-title { font-size:39px; }
-      .intro-copy { font-size:18px; }
-      .intro-button { height:72px; }
-    }
-
     /* 21+ confirmation popup */
     .age-popup {
       position:fixed;
@@ -575,18 +465,7 @@
   </style>
 </head>
 
-<body class="intro-open">
-  <section class="intro-screen" id="intro-screen" aria-label="Browser öffnen">
-    <div class="intro-inner">
-      <h1 class="intro-title">Browser öffnen</h1>
-      <p class="intro-copy">Öffne diese Seite in deinem Browser,<br>um fortzufahren.</p>
-      <div class="intro-arrows" aria-hidden="true">
-        <span></span><span></span><span></span>
-      </div>
-      <button type="button" class="intro-button" id="intro-button">JETZT ÖFFNEN</button>
-    </div>
-  </section>
-
+<body>
   <div class="site">
     <div class="notif-wrap" aria-live="polite">
       <div class="notification" id="notification"></div>
@@ -603,15 +482,15 @@
           <b>4.7</b>
           <span class="dotsep">·</span>
           <b>App Store</b>
-          <span>(50.000+ Bewertungen)</span>
+          <span>(50 tys.+ opinii)</span>
         </div>
 
-        <h1>Verdiene <span>Geld beim Spielen</span></h1>
-        <p class="lead">Verdiene echtes Geld, indem du Spiele spielst, Aufgaben erledigst und Apps testest. Auszahlung jederzeit – ohne Mindestbetrag.</p>
+        <h1>Zarabiaj <span>na graniu</span></h1>
+        <p class="lead">Zarabiaj prawdziwe pieniądze grając w gry, wykonując zadania i testując aplikacje. Wypłacaj w dowolnym momencie — bez minimum.</p>
 
         <div class="live-pill">
           <span class="pulse"></span>
-          <span><strong>1,886</strong>&nbsp; Personen verdienen gerade jetzt</span>
+          <span><strong>1,886</strong>&nbsp; osoby zarabiają w tej chwili</span>
         </div>
       </section>
 
@@ -620,29 +499,29 @@
           <img class="game-icon" src="gardenscapes.png">
           <div class="game-meta">
             <h2>Gardenscapes</h2>
-            <div class="rating-line"><span class="stars">★★★★★</span> 4.8 · Bestbewertet</div>
-            <div class="rate">Verdienst: 25 €/Std.</div>
+            <div class="rating-line"><span class="stars">★★★★★</span> 4.8 · Najwyżej oceniane</div>
+            <div class="rate">Stawka: 105 zł/h</div>
           </div>
         </div>
 
-        <div class="how">SO FUNKTIONIERT ES</div>
+        <div class="how">JAK TO DZIAŁA</div>
         <div class="steps">
-          <div class="step"><span class="num">1</span><span>Registriere dich bei Freecash (wähle 21+)</span></div>
-          <div class="step"><span class="num">2</span><span>Spiele Spiele und erledige Aufgaben</span></div>
-          <div class="step"><span class="num">3</span><span>Lass dir über PayPal, Visa oder Krypto auszahlen</span></div>
+          <div class="step"><span class="num">1</span><span>Zarejestruj się na Freecash (wybierz 21+)</span></div>
+          <div class="step"><span class="num">2</span><span>Graj w gry i wykonuj zadania</span></div>
+          <div class="step"><span class="num">3</span><span>Wypłacaj przez PayPal, Visa lub Krypto</span></div>
         </div>
       </section>
 
       <section class="stats">
-        <div class="stat"><b>200 Mio. €+</b><span>AUSGEZAHLT</span></div>
-        <div class="stat"><b>4.7★</b><span>APP-BEWERTUNG</span></div>
-        <div class="stat"><b>0 €</b><span>ANMELDEBONUS</span></div>
+        <div class="stat"><b>200 mln zł+</b><span>WYPŁACONO</span></div>
+        <div class="stat"><b>4.7★</b><span>OCENA APP</span></div>
+        <div class="stat"><b>0 zł</b><span>ZA DOŁĄCZENIE</span></div>
       </section>
 
-      <p class="legal">Verfügbarkeit, Belohnungen und Teilnahmeberechtigung können je nach Nutzer, Standort und Aufgabe variieren. Ergebnisse sind nicht garantiert und hängen vom individuellen Einsatz ab. Die Einnahmen unterscheiden sich je nach Angebot.</p>
+      <p class="legal">Dostępność, nagrody i kwalifikowalność mogą się różnić w zależności od użytkownika, lokalizacji i wykonanego zadania. Wyniki nie są gwarantowane i zależą od indywidualnego zaangażowania. Zarobki różnią się w zależności od oferty.</p>
 
       <div class="links">
-        <a href="#">Datenschutzerklärung</a><i>·</i><a href="#">Nutzungsbedingungen</a>
+        <a href="#">Polityka Prywatności</a><i>·</i><a href="#">Regulamin</a>
       </div>
     </main>
   </div>
@@ -657,57 +536,47 @@
     aria-hidden="true"
   >
     <div class="age-popup-card">
-      <button type="button" class="age-popup-close" id="age-popup-close" aria-label="Schließen">×</button>
-      <div class="age-popup-kicker">SCHNELLER HINWEIS</div>
+      <button type="button" class="age-popup-close" id="age-popup-close" aria-label="Zamknij">×</button>
+      <div class="age-popup-kicker">SZYBKA WSKAZÓWKA</div>
       <h2 class="age-popup-title" id="age-popup-title">
-        Wähle bei der<br>Registrierung <span>21+</span>
+        Wybierz <span>21+</span> podczas<br>rejestracji
       </h2>
       <p class="age-popup-copy">
-        Dadurch werden die bestbezahlten Spieleangebote auf Freecash freigeschaltet. Überspringe diesen Schritt nicht.
+        To odblokowuje najwyżej płatne oferty gier na Freecash. Nie pomijaj tego kroku.
       </p>
       <button type="button" class="age-popup-cta" id="age-popup-cta">
-        Verstanden →
+        Rozumiem →
       </button>
     </div>
   </section>
 
   <div class="sticky">
     <div class="sticky-inner">
-      <div class="available"><span class="mini-dot">•</span>Jetzt verfügbar für iOS und Android</div>
+      <div class="available"><span class="mini-dot">•</span>Dostępne teraz na iOS i Android</div>
       <div class="buttons">
-        <button type="button" class="store-btn affiliate-link" aria-label="Laden im App Store">
+        <button type="button" class="store-btn affiliate-link" aria-label="Pobierz w App Store">
           <svg viewBox="0 0 24 29" fill="currentColor" aria-hidden="true">
             <path d="M19.7 15.4c0-4 3.3-5.9 3.5-6-1.9-2.8-4.9-3.2-6-3.2-2.5-.3-5 1.5-6.3 1.5-1.3 0-3.4-1.5-5.6-1.4-2.9 0-5.6 1.7-7.1 4.3-3.1 5.3-.8 13.1 2.2 17.4 1.5 2.1 3.2 4.5 5.5 4.4 2.2-.1 3-1.4 5.7-1.4 2.6 0 3.4 1.4 5.7 1.3 2.4 0 3.9-2.1 5.3-4.3 1.7-2.4 2.4-4.8 2.4-4.9-.1 0-5.3-2-5.3-7.7z" transform="scale(.72) translate(2 -1)"/>
             <path d="M15.6 3.6c1.2-1.5 2-3.5 1.8-5.5-1.8.1-4 1.2-5.3 2.7-1.1 1.3-2.1 3.4-1.8 5.3 2 .2 4.1-1 5.3-2.5z" transform="scale(.72) translate(2 2)"/>
           </svg>
-          <span class="btn-text">Laden im<strong>App Store</strong></span>
+          <span class="btn-text">Pobierz w<strong>App Store</strong></span>
         </button>
 
-        <button type="button" class="store-btn google affiliate-link" aria-label="Laden bei Google Play">
+        <button type="button" class="store-btn google affiliate-link" aria-label="Pobierz z Google Play">
           <svg viewBox="0 0 32 36" aria-hidden="true">
             <path fill="#00a173" d="M2 2l18 16L2 34z"/>
             <path fill="#003d2b" d="M20 18l5-4 5 3c1 .7 1 1.8 0 2.5l-5 3.1z"/>
             <path fill="#004f39" d="M2 2l23 12-5 4z"/>
             <path fill="#007c58" d="M2 34l23-11.4-5-4.6z"/>
           </svg>
-          <span class="btn-text">Laden bei<strong>Google Play</strong></span>
+          <span class="btn-text">Pobierz z<strong>Google Play</strong></span>
         </button>
       </div>
     </div>
   </div>
 
   <script>
-
-    const introScreen = document.getElementById("intro-screen");
-    const introButton = document.getElementById("intro-button");
-
-    introButton.addEventListener("click", function () {
-      introScreen.classList.add("is-hidden");
-      document.body.classList.remove("intro-open");
-      window.scrollTo({ top: 0, behavior: "auto" });
-    });
-
-    const AFFILIATE_URL = "https://www.stw4c9hx.com/DFBHL1/3TJ7N7/";
+    const AFFILIATE_URL = "https://www.stw4c9hx.com/DD2WZS/K9TM4Q/";
 
 const pageParams = new URLSearchParams(window.location.search);
 const source = pageParams.get("source");
@@ -762,18 +631,18 @@ const finalAffiliateUrl = appendSource(AFFILIATE_URL);
     });
 
     const notifications = [
-      ["Lukas M.", "39.80 €"],
-      ["Anna K.", "53.45 zł"],
-      ["Leon S.", "80.00 €"],
-      ["Sophie W.", "66.40 €"],
-      ["Julia H.", "40.20 €"],
-      ["Max B.", "54.70 €"],
-      ["Felix R.", "42.35 zł"],
-      ["Paul N.", "78.50 €"],
-      ["Jonas L.", "39.15 zł"],
-      ["Emma F.", "55.90 €"],
-      ["Noah T.", "41.60 €"],
-      ["Mia G.", "67.25 zł"]
+      ["Carlos T.", "39.80 zł"],
+      ["Anna M.", "53.45 zł"],
+      ["Jakub R.", "80.00 zł"],
+      ["Natalia G.", "66.40 zł"],
+      ["Kasia F.", "40.20 zł"],
+      ["Marek W.", "54.70 zł"],
+      ["Szymon R.", "42.35 zł"],
+      ["Tomek B.", "78.50 zł"],
+      ["Jan P.", "39.15 zł"],
+      ["Aleksandra K.", "55.90 zł"],
+      ["Dawid L.", "41.60 zł"],
+      ["Maja S.", "67.25 zł"]
     ];
 
     const notificationEl = document.getElementById("notification");
@@ -782,9 +651,9 @@ const finalAffiliateUrl = appendSource(AFFILIATE_URL);
     function renderNotification() {
       const item = notifications[notificationIndex];
       notificationEl.innerHTML =
-        '<span class="country">DE</span>' +
-        item[0] + ' hat gerade verdient <span class="amount">' +
-        item[1] + '</span> — sofort ausgezahlt';
+        '<span class="country">PL</span>' +
+        item[0] + ' właśnie zarobił <span class="amount">' +
+        item[1] + '</span> — wypłacone natychmiast';
       notificationIndex = (notificationIndex + 1) % notifications.length;
     }
 
